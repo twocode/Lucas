@@ -115,7 +115,6 @@ name = _name;
 
 - (void)handleSingleSwipe
 {
-    [[self navigationController] setNavigationBarHidden:NO];
     [self navigationController].view.backgroundColor = [UIColor darkGrayColor];
     
     NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)

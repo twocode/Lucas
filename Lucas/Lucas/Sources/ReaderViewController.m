@@ -44,8 +44,6 @@
 
 	UIScrollView *theScrollView;
 
-	ReaderMainToolbar *mainToolbar;
-
 //	ReaderMainPagebar *mainPagebar;
 
 	NSMutableDictionary *contentViews;
@@ -57,6 +55,8 @@
 	CGSize lastAppearSize;
 
 	NSDate *lastHideTime;
+    
+    BOOL isNavigationBarHidden;
 
 	BOOL isVisible;
 }
@@ -131,7 +131,7 @@
 
 	BOOL bookmarked = [document.bookmarks containsIndex:page];
 
-	[mainToolbar setBookmarkState:bookmarked]; // Update
+//	[mainToolbar setBookmarkState:bookmarked]; // Update
 }
 
 - (void)showDocumentPage:(NSInteger)page
@@ -285,6 +285,8 @@
 	id reader = nil; // ReaderViewController object
     
     _delegate = dlgt;
+    
+    isNavigationBarHidden = NO;
 
 	if ((object != nil) && ([object isKindOfClass:[ReaderDocument class]]))
 	{
@@ -347,7 +349,7 @@
     
     UIBarButtonItem *rightScopeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:_delegate action:@selector(leftScopeButtonClicked:)];
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:Nil action:Nil];
-    fixedSpace.width = 10.0f;
+    fixedSpace.width = 20.0f;
     UIBarButtonItem *bookMarkButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookMarkClicked)];
     UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:Nil];
     self.navigationItem.rightBarButtonItems = @[rightScopeButton, fixedSpace, bookMarkButton, fixedSpace];
@@ -438,7 +440,7 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	mainToolbar = nil; /*mainPagebar = nil;*/
+//	mainToolbar = nil; /*mainPagebar = nil;*/
 
 	theScrollView = nil; contentViews = nil; lastHideTime = nil;
 
@@ -580,6 +582,7 @@
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
 {
     [_delegate setNeedsResume];
+    
 	if (recognizer.state == UIGestureRecognizerStateRecognized)
 	{
         
@@ -638,10 +641,14 @@
 			{
 				if ([lastHideTime timeIntervalSinceNow] < -0.75) // Delay since hide
 				{
-					if ((mainToolbar.hidden == YES) /*|| (mainPagebar.hidden == YES)*/)
-					{
-						[mainToolbar showToolbar]; /*[mainPagebar showPagebar]; // Show*/
-					}
+//					if ((mainToolbar.hidden == YES) /*|| (mainPagebar.hidden == YES)*/)
+//					{
+//						[mainToolbar showToolbar]; /*[mainPagebar showPagebar]; // Show*/
+//					}
+                    if (isNavigationBarHidden == YES) {
+                        [self.navigationController setNavigationBarHidden:NO animated:YES];
+                        isNavigationBarHidden = NO;
+                    }
 				}
 			}
 
@@ -727,7 +734,8 @@
 - (void)contentView:(ReaderContentView *)contentView touchesBegan:(NSSet *)touches
 {
     [_delegate setNeedsResume];
-	if ((mainToolbar.hidden == NO) /*|| (mainPagebar.hidden == NO)*/)
+//	if ((mainToolbar.hidden == NO) /*|| (mainPagebar.hidden == NO)*/)
+    if (isNavigationBarHidden == NO)
 	{
 		if (touches.count == 1) // Single touches only
 		{
@@ -740,7 +748,10 @@
 			if (CGRectContainsPoint(areaRect, point) == false) return;
 		}
 
-		[mainToolbar hideToolbar]; /*[mainPagebar hidePagebar]; // Hide*/
+//		[mainToolbar hideToolbar]; /*[mainPagebar hidePagebar]; // Hide*/
+        NSLog(@"nav bar: %@", self.navigationController);
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        isNavigationBarHidden = YES;
 
 		lastHideTime = [NSDate date];
 	}
