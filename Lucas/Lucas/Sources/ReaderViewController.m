@@ -647,6 +647,8 @@
 //					}
                     if (isNavigationBarHidden == YES) {
                         [self.navigationController setNavigationBarHidden:NO animated:YES];
+                        [[UIApplication sharedApplication] setStatusBarHidden:NO
+                                                                withAnimation:UIStatusBarAnimationFade];
                         isNavigationBarHidden = NO;
                     }
 				}
@@ -751,6 +753,8 @@
 //		[mainToolbar hideToolbar]; /*[mainPagebar hidePagebar]; // Hide*/
         NSLog(@"nav bar: %@", self.navigationController);
         [self.navigationController setNavigationBarHidden:YES animated:YES];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES
+                                                withAnimation:UIStatusBarAnimationFade];
         isNavigationBarHidden = YES;
 
 		lastHideTime = [NSDate date];

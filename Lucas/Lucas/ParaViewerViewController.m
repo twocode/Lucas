@@ -11,7 +11,7 @@
 #import "IISideController.h"
 #import "MCSwipeTableViewCell.h"
 
-#define DEMO_VIEW_CONTROLLER_PUSH TRUE
+#define DEMO_VIEW_CONTROLLER_PUSH FALSE
 static NSUInteger const kMCNumItems = 8;
 
 @implementation Color
@@ -74,21 +74,14 @@ name = _name;
     
 
     self.title = @"Viewer";
-//    self.navigationController.navigationBar.tintColor = [UIColor darkGrayColor];
-//    self.view.backgroundColor = [UIColor clearColor];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reload:)];
     [self reload:nil];
-//    UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-//    [backgroundView setBackgroundColor:[UIColor colorWithRed:227.0 / 255.0 green:227.0 / 255.0 blue:227.0 / 255.0 alpha:1.0]];
-//    [self.tableView setBackgroundView:backgroundView];
-    
-//    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
-//    self.navigationController.navigationBar.translucent = YES;
     
     self.view.backgroundColor = [UIColor darkGrayColor]; //
+    [[self.navigationController navigationBar] setTranslucent:NO];
     
-	CGRect viewBounds = self.view.frame;
+	CGRect viewBounds = self.view.bounds;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(viewBounds.origin.x, viewBounds.origin.y, viewBounds.size.width, viewBounds.size.height - 44.0f)];
+    NSLOG_CGRECT("tableview", viewBounds);
     [_tableView setDelegate:self];
     [_tableView setDataSource:self];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -115,7 +108,7 @@ name = _name;
 
 - (void)handleSingleSwipe
 {
-    [self navigationController].view.backgroundColor = [UIColor darkGrayColor];
+//    [self navigationController].view.backgroundColor = [UIColor clearColor];
     
     NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
     
@@ -128,27 +121,13 @@ name = _name;
 	if (document != nil) // Must have a valid ReaderDocument object in order to proceed with things
 	{
 		ReaderViewController *readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document delegate:self];
-#if (DEMO_VIEW_CONTROLLER_PUSH == TRUE)
-        CGRect rect = readerViewController.view.frame;
-        rect.size.height = 500;
-        readerViewController.view.frame = rect;
         readerViewController.view.backgroundColor = [UIColor darkGrayColor];
-
+        
         if ([readerViewController.navigationItem respondsToSelector:@selector(leftBarButtonItems)]) {
-            //            readerViewController.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:
-            //                                                                      [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleBordered target:self.viewDeckController action:@selector(toggleLeftView)],nil];
-            
-            [self.navigationController pushViewController:readerViewController animated:YES
-             ];
-            
-#else // present in a modal view controller
-            
             readerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             readerViewController.modalPresentationStyle = UIModalPresentationFullScreen;
-            
-            [self presentModalViewController:readerViewController animated:YES];
-            
-#endif // DEMO_VIEW_CONTROLLER_PUSH
+            [self.navigationController pushViewController:readerViewController animated:YES
+             ];
             
             readerViewController.delegate = self; // Set the ReaderViewController delegate to self
             
