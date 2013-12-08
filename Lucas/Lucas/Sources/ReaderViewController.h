@@ -36,13 +36,12 @@
 - (void)dismissReaderViewController:(ReaderViewController *)viewController;
 - (void)leftScopeButtonClicked:(UIButton *)button;
 - (void)setNeedsResume;
-- (void)doneButtonClicked;
+
 @end
 
 @interface ReaderViewController : UIViewController
 
 @property (nonatomic, unsafe_unretained, readwrite) id <ReaderViewControllerDelegate> delegate;
 
-- (id)initWithReaderDocument:(ReaderDocument *)object;
-
+- (id)initWithReaderDocument:(ReaderDocument *)object delegate:(id) dlgt;
 @end

@@ -35,7 +35,7 @@
 #import <MessageUI/MessageUI.h>
 
 @interface ReaderViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, MFMailComposeViewControllerDelegate,
-									ReaderMainToolbarDelegate, /*ReaderMainPagebarDelegate, */ReaderContentViewDelegate, ThumbsViewControllerDelegate>
+									/*ReaderMainToolbarDelegate,*/ /*ReaderMainPagebarDelegate, */ReaderContentViewDelegate, ThumbsViewControllerDelegate>
 @end
 
 @implementation ReaderViewController
@@ -72,7 +72,7 @@
 
 #pragma mark Properties
 
-@synthesize delegate;
+@synthesize delegate = _delegate;
 
 #pragma mark Support methods
 
@@ -280,9 +280,11 @@
 
 #pragma mark UIViewController methods
 
-- (id)initWithReaderDocument:(ReaderDocument *)object
+- (id)initWithReaderDocument:(ReaderDocument *)object delegate:(id)dlgt
 {
 	id reader = nil; // ReaderViewController object
+    
+    _delegate = dlgt;
 
 	if ((object != nil) && ([object isKindOfClass:[ReaderDocument class]]))
 	{
@@ -311,7 +313,7 @@
 
 	assert(document != nil); // Must have a valid ReaderDocument
 
-//	self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+//	self.view.backgroundColor = [UIColor clearColor];
 
 	CGRect viewRect = self.view.bounds; // View controller's view bounds
     viewRect.origin.y = 20;
@@ -332,16 +334,28 @@
 
 	[self.view addSubview:theScrollView];
 
-	CGRect toolbarRect = viewRect;
-//    CGRect toolbarRect = CGRectMake(0, 40, viewRect.size.width, viewRect.size.height);
-	toolbarRect.size.height = TOOLBAR_HEIGHT;
+//	CGRect toolbarRect = viewRect;
+////    CGRect toolbarRect = CGRectMake(0, 40, viewRect.size.width, viewRect.size.height);
+//	toolbarRect.size.height = TOOLBAR_HEIGHT;
+//
+//	mainToolbar = [[ReaderMainToolbar alloc] initWithFrame:toolbarRect document:document]; // At top
+//
+//	mainToolbar.delegate = self;
+//    mainToolbar.backgroundColor = [UIColor clearColor];
+//	[self.view addSubview:mainToolbar];
 
-	mainToolbar = [[ReaderMainToolbar alloc] initWithFrame:toolbarRect document:document]; // At top
-
-	mainToolbar.delegate = self;
-
-	[self.view addSubview:mainToolbar];
-
+    
+    UIBarButtonItem *rightScopeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:_delegate action:@selector(leftScopeButtonClicked:)];
+    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:Nil action:Nil];
+    fixedSpace.width = 10.0f;
+    UIBarButtonItem *bookMarkButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookMarkClicked)];
+    UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:Nil];
+    self.navigationItem.rightBarButtonItems = @[rightScopeButton, fixedSpace, bookMarkButton, fixedSpace];
+    self.navigationItem.leftItemsSupplementBackButton = YES;
+    self.navigationItem.leftBarButtonItems = @[fixedSpace, actionButton];
+    
+//    titleX += (DONE_BUTTON_WIDTH + BUTTON_SPACE); titleWidth -= (DONE_BUTTON_WIDTH + BUTTON_SPACE);
+    
 //	CGRect pagebarRect = viewRect;
 //	pagebarRect.size.height = PAGEBAR_HEIGHT;
 //	pagebarRect.origin.y = (viewRect.size.height - PAGEBAR_HEIGHT);
@@ -565,7 +579,7 @@
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
 {
-    [delegate setNeedsResume];
+    [_delegate setNeedsResume];
 	if (recognizer.state == UIGestureRecognizerStateRecognized)
 	{
         
@@ -655,7 +669,7 @@
 
 - (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer
 {
-    [delegate setNeedsResume];
+    [_delegate setNeedsResume];
 	if (recognizer.state == UIGestureRecognizerStateRecognized)
 	{
         
@@ -712,7 +726,7 @@
 
 - (void)contentView:(ReaderContentView *)contentView touchesBegan:(NSSet *)touches
 {
-    [delegate setNeedsResume];
+    [_delegate setNeedsResume];
 	if ((mainToolbar.hidden == NO) /*|| (mainPagebar.hidden == NO)*/)
 	{
 		if (touches.count == 1) // Single touches only
@@ -734,31 +748,31 @@
 
 #pragma mark ReaderMainToolbarDelegate methods
 
-- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar doneButton:(UIButton *)button
-{
-    [delegate setNeedsResume];
-    [delegate doneButtonClicked];
-#if (READER_STANDALONE == FALSE) // Option
-
-	[document saveReaderDocument]; // Save any ReaderDocument object changes
-
-	[[ReaderThumbQueue sharedInstance] cancelOperationsWithGUID:document.guid];
-
-	[[ReaderThumbCache sharedInstance] removeAllObjects]; // Empty the thumb cache
-
-	if (printInteraction != nil) [printInteraction dismissAnimated:NO]; // Dismiss
-
-	if ([delegate respondsToSelector:@selector(dismissReaderViewController:)] == YES)
-	{
-		[delegate dismissReaderViewController:self]; // Dismiss the ReaderViewController
-	}
-	else // We have a "Delegate must respond to -dismissReaderViewController: error"
-	{
-		NSAssert(NO, @"Delegate must respond to -dismissReaderViewController:");
-	}
-
-#endif // end of READER_STANDALONE Option
-}
+//- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar doneButton:(UIButton *)button
+//{
+//    [_delegate setNeedsResume];
+//    
+//#if (READER_STANDALONE == FALSE) // Option
+//
+//	[document saveReaderDocument]; // Save any ReaderDocument object changes
+//
+//	[[ReaderThumbQueue sharedInstance] cancelOperationsWithGUID:document.guid];
+//
+//	[[ReaderThumbCache sharedInstance] removeAllObjects]; // Empty the thumb cache
+//
+//	if (printInteraction != nil) [printInteraction dismissAnimated:NO]; // Dismiss
+//
+//	if ([_delegate respondsToSelector:@selector(dismissReaderViewController:)] == YES)
+//	{
+//		[_delegate dismissReaderViewController:self]; // Dismiss the ReaderViewController
+//	}
+//	else // We have a "Delegate must respond to -dismissReaderViewController: error"
+//	{
+//		NSAssert(NO, @"Delegate must respond to -dismissReaderViewController:");
+//	}
+//
+//#endif // end of READER_STANDALONE Option
+//}
 
 //- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar thumbsButton:(UIButton *)button
 //{
@@ -775,127 +789,151 @@
 //    [self presentViewController:thumbsViewController animated:NO completion:nil];
 //}
 
-- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar printButton:(UIButton *)button
+//- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar printButton:(UIButton *)button
+//{
+//    [_delegate setNeedsResume];
+//#if (READER_ENABLE_PRINT == TRUE) // Option
+//
+//	Class printInteractionController = NSClassFromString(@"UIPrintInteractionController");
+//
+//	if ((printInteractionController != nil) && [printInteractionController isPrintingAvailable])
+//	{
+//		NSURL *fileURL = document.fileURL; // Document file URL
+//
+//		printInteraction = [printInteractionController sharedPrintController];
+//
+//		if ([printInteractionController canPrintURL:fileURL] == YES) // Check first
+//		{
+//			UIPrintInfo *printInfo = [NSClassFromString(@"UIPrintInfo") printInfo];
+//
+//			printInfo.duplex = UIPrintInfoDuplexLongEdge;
+//			printInfo.outputType = UIPrintInfoOutputGeneral;
+//			printInfo.jobName = document.fileName;
+//
+//			printInteraction.printInfo = printInfo;
+//			printInteraction.printingItem = fileURL;
+//			printInteraction.showsPageRange = YES;
+//
+//			if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+//			{
+//				[printInteraction presentFromRect:button.bounds inView:button animated:YES completionHandler:
+//					^(UIPrintInteractionController *pic, BOOL completed, NSError *error)
+//					{
+//						#ifdef DEBUG
+//							if ((completed == NO) && (error != nil)) NSLog(@"%s %@", __FUNCTION__, error);
+//						#endif
+//					}
+//				];
+//			}
+//			else // Presume UIUserInterfaceIdiomPhone
+//			{
+//				[printInteraction presentAnimated:YES completionHandler:
+//					^(UIPrintInteractionController *pic, BOOL completed, NSError *error)
+//					{
+//						#ifdef DEBUG
+//							if ((completed == NO) && (error != nil)) NSLog(@"%s %@", __FUNCTION__, error);
+//						#endif
+//					}
+//				];
+//			}
+//		}
+//	}
+//
+//#endif // end of READER_ENABLE_PRINT Option
+//}
+
+//- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar emailButton:(UIButton *)button
+//{
+//    [_delegate setNeedsResume];
+//#if (READER_ENABLE_MAIL == TRUE) // Option
+//
+//	if ([MFMailComposeViewController canSendMail] == NO) return;
+//
+//	if (printInteraction != nil) [printInteraction dismissAnimated:YES];
+//
+//	unsigned long long fileSize = [document.fileSize unsignedLongLongValue];
+//
+//	if (fileSize < (unsigned long long)15728640) // Check attachment size limit (15MB)
+//	{
+//		NSURL *fileURL = document.fileURL; NSString *fileName = document.fileName; // Document
+//
+//		NSData *attachment = [NSData dataWithContentsOfURL:fileURL options:(NSDataReadingMapped|NSDataReadingUncached) error:nil];
+//
+//		if (attachment != nil) // Ensure that we have valid document file attachment data
+//		{
+//			MFMailComposeViewController *mailComposer = [MFMailComposeViewController new];
+//
+//			[mailComposer addAttachmentData:attachment mimeType:@"application/pdf" fileName:fileName];
+//
+//			[mailComposer setSubject:fileName]; // Use the document file name for the subject
+//
+//			mailComposer.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+//			mailComposer.modalPresentationStyle = UIModalPresentationFormSheet;
+//
+//			mailComposer.mailComposeDelegate = self; // Set the delegate
+//
+//            [self presentViewController:mailComposer animated:YES completion:nil];
+//		}
+//	}
+//
+//#endif // end of READER_ENABLE_MAIL Option
+//}
+
+//- (void)tappedInToolbar/*:(ReaderMainToolbar *)toolbar markButton:(UIButton *)button*/
+//{
+//    [_delegate setNeedsResume];
+//    
+//	if (printInteraction != nil) [printInteraction dismissAnimated:YES];
+//
+//	NSInteger page = [document.pageNumber integerValue];
+//
+//	if ([document.bookmarks containsIndex:page]) // Remove bookmark
+//	{
+//		/*[mainToolbar setBookmarkState:NO]; */
+//        [document.bookmarks removeIndex:page];
+//	}
+//	else // Add the bookmarked page index to the bookmarks set
+//	{
+//		/*[mainToolbar setBookmarkState:YES]; */
+//        [document.bookmarks addIndex:page];
+//	}
+//}
+
+- (void)bookMarkClicked
 {
-    [delegate setNeedsResume];
-#if (READER_ENABLE_PRINT == TRUE) // Option
-
-	Class printInteractionController = NSClassFromString(@"UIPrintInteractionController");
-
-	if ((printInteractionController != nil) && [printInteractionController isPrintingAvailable])
-	{
-		NSURL *fileURL = document.fileURL; // Document file URL
-
-		printInteraction = [printInteractionController sharedPrintController];
-
-		if ([printInteractionController canPrintURL:fileURL] == YES) // Check first
-		{
-			UIPrintInfo *printInfo = [NSClassFromString(@"UIPrintInfo") printInfo];
-
-			printInfo.duplex = UIPrintInfoDuplexLongEdge;
-			printInfo.outputType = UIPrintInfoOutputGeneral;
-			printInfo.jobName = document.fileName;
-
-			printInteraction.printInfo = printInfo;
-			printInteraction.printingItem = fileURL;
-			printInteraction.showsPageRange = YES;
-
-			if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
-			{
-				[printInteraction presentFromRect:button.bounds inView:button animated:YES completionHandler:
-					^(UIPrintInteractionController *pic, BOOL completed, NSError *error)
-					{
-						#ifdef DEBUG
-							if ((completed == NO) && (error != nil)) NSLog(@"%s %@", __FUNCTION__, error);
-						#endif
-					}
-				];
-			}
-			else // Presume UIUserInterfaceIdiomPhone
-			{
-				[printInteraction presentAnimated:YES completionHandler:
-					^(UIPrintInteractionController *pic, BOOL completed, NSError *error)
-					{
-						#ifdef DEBUG
-							if ((completed == NO) && (error != nil)) NSLog(@"%s %@", __FUNCTION__, error);
-						#endif
-					}
-				];
-			}
-		}
-	}
-
-#endif // end of READER_ENABLE_PRINT Option
-}
-
-- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar emailButton:(UIButton *)button
-{
-    [delegate setNeedsResume];
-#if (READER_ENABLE_MAIL == TRUE) // Option
-
-	if ([MFMailComposeViewController canSendMail] == NO) return;
-
+    [_delegate setNeedsResume];
+    
 	if (printInteraction != nil) [printInteraction dismissAnimated:YES];
-
-	unsigned long long fileSize = [document.fileSize unsignedLongLongValue];
-
-	if (fileSize < (unsigned long long)15728640) // Check attachment size limit (15MB)
-	{
-		NSURL *fileURL = document.fileURL; NSString *fileName = document.fileName; // Document
-
-		NSData *attachment = [NSData dataWithContentsOfURL:fileURL options:(NSDataReadingMapped|NSDataReadingUncached) error:nil];
-
-		if (attachment != nil) // Ensure that we have valid document file attachment data
-		{
-			MFMailComposeViewController *mailComposer = [MFMailComposeViewController new];
-
-			[mailComposer addAttachmentData:attachment mimeType:@"application/pdf" fileName:fileName];
-
-			[mailComposer setSubject:fileName]; // Use the document file name for the subject
-
-			mailComposer.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-			mailComposer.modalPresentationStyle = UIModalPresentationFormSheet;
-
-			mailComposer.mailComposeDelegate = self; // Set the delegate
-
-            [self presentViewController:mailComposer animated:YES completion:nil];
-		}
-	}
-
-#endif // end of READER_ENABLE_MAIL Option
-}
-
-- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar markButton:(UIButton *)button
-{
-    [delegate setNeedsResume];
-	if (printInteraction != nil) [printInteraction dismissAnimated:YES];
-
+    
 	NSInteger page = [document.pageNumber integerValue];
-
+    
 	if ([document.bookmarks containsIndex:page]) // Remove bookmark
 	{
-		[mainToolbar setBookmarkState:NO]; [document.bookmarks removeIndex:page];
+		/*[mainToolbar setBookmarkState:NO]; */
+        [document.bookmarks removeIndex:page];
 	}
 	else // Add the bookmarked page index to the bookmarks set
 	{
-		[mainToolbar setBookmarkState:YES]; [document.bookmarks addIndex:page];
+		/*[mainToolbar setBookmarkState:YES]; */
+        [document.bookmarks addIndex:page];
 	}
 }
-- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar leftScopeButton:(UIButton *)button
-{
-    [delegate leftScopeButtonClicked:button];
-}
+
+//- (void)tappedInToolbar:(ReaderMainToolbar *)toolbar leftScopeButton:(UIButton *)button
+//{
+//    [_delegate leftScopeButtonClicked:button];
+//}
 
 #pragma mark MFMailComposeViewControllerDelegate methods
 
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-	#ifdef DEBUG
-		if ((result == MFMailComposeResultFailed) && (error != NULL)) NSLog(@"%@", error);
-	#endif
-
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+//- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+//{
+//	#ifdef DEBUG
+//		if ((result == MFMailComposeResultFailed) && (error != NULL)) NSLog(@"%@", error);
+//	#endif
+//
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 
 #pragma mark ThumbsViewControllerDelegate methods
 

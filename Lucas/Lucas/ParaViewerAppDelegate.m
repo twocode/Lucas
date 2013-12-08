@@ -59,6 +59,7 @@
     
     paraViewerViewController = [[UINavigationController alloc] initWithRootViewController:paraViewerViewController];
     IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:paraViewerViewController];
+    [deckController setPanningMode:IIViewDeckNoPanning];
     
 //    leftSideController.constrainedSize = 100;
 //    deckController.leftSize = 100;

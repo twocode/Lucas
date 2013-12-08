@@ -85,7 +85,7 @@ name = _name;
 //    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
 //    self.navigationController.navigationBar.translucent = YES;
     
-    self.view.backgroundColor = [UIColor darkGrayColor]; // Transparent
+    self.view.backgroundColor = [UIColor darkGrayColor]; //
     
 	CGRect viewBounds = self.view.frame;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(viewBounds.origin.x, viewBounds.origin.y, viewBounds.size.width, viewBounds.size.height - 44.0f)];
@@ -115,7 +115,8 @@ name = _name;
 
 - (void)handleSingleSwipe
 {
-    [[self navigationController] setNavigationBarHidden:YES];
+    [[self navigationController] setNavigationBarHidden:NO];
+    [self navigationController].view.backgroundColor = [UIColor darkGrayColor];
     
     NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
     
@@ -127,13 +128,13 @@ name = _name;
     
 	if (document != nil) // Must have a valid ReaderDocument object in order to proceed with things
 	{
-		ReaderViewController *readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document];
+		ReaderViewController *readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document delegate:self];
 #if (DEMO_VIEW_CONTROLLER_PUSH == TRUE)
         CGRect rect = readerViewController.view.frame;
         rect.size.height = 500;
         readerViewController.view.frame = rect;
-        readerViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"left" style:UIBarButtonItemStyleBordered target:self.viewDeckController action:@selector(toggleLeftView)];
-        
+        readerViewController.view.backgroundColor = [UIColor darkGrayColor];
+
         if ([readerViewController.navigationItem respondsToSelector:@selector(leftBarButtonItems)]) {
             //            readerViewController.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:
             //                                                                      [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleBordered target:self.viewDeckController action:@selector(toggleLeftView)],nil];
@@ -156,11 +157,12 @@ name = _name;
             _leftScopeViewController = [_leftScopeViewController initWithReaderDocument:document];
             //    initWithReaderDocument:document];
             _leftScopeViewController.delegate = (id)readerViewController;
-            [_leftScopeViewController.view setNeedsDisplay];
             IISideController *leftSideController = [[IISideController alloc] initWithViewController:(UIViewController *) _leftScopeViewController constrained:250.0f];
-            self.viewDeckController.leftController = leftSideController;
+            self.viewDeckController.rightController = leftSideController;
             [self.viewDeckController setSizeMode:IIViewDeckViewSizeMode];
-            [self.viewDeckController setLeftSize:250.0f];
+            
+            [self.viewDeckController setRightSize:250.0f];
+            [_leftScopeViewController.view setNeedsDisplay];
         }
     }
 }
@@ -179,26 +181,20 @@ name = _name;
     
 #endif // DEMO_VIEW_CONTROLLER_PUSH
     
-    self.viewDeckController.leftController = nil;
+    self.viewDeckController.rightController = nil;
 }
 
 - (void)leftScopeButtonClicked:(UIButton *)button
 {
-    [self.viewDeckController toggleLeftView];
+    [self.viewDeckController toggleRightView];
     //    [self.viewDeckController.view setNeedsDisplay];
 }
 
 - (void)setNeedsResume
 {
-    [self.viewDeckController closeLeftView];
-    NSLog(@"_tableView frame %@", NSStringFromCGRect(_tableView.bounds));
+    [self.viewDeckController closeRightView];
 
 //    [AMCommandMaster reload];
-}
-
-- (void)doneButtonClicked
-{
-    [[self navigationController] setNavigationBarHidden:NO];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

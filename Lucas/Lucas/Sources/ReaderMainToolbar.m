@@ -39,16 +39,16 @@
 
 #pragma mark Constants
 
-#define BUTTON_X 8.0f
-#define BUTTON_Y 8.0f
-#define BUTTON_SPACE 8.0f
-#define BUTTON_HEIGHT 30.0f
-
-#define DONE_BUTTON_WIDTH 56.0f
-#define THUMBS_BUTTON_WIDTH 40.0f
-#define PRINT_BUTTON_WIDTH 40.0f
-#define EMAIL_BUTTON_WIDTH 40.0f
-#define MARK_BUTTON_WIDTH 40.0f
+//#define BUTTON_X 8.0f
+//#define BUTTON_Y 8.0f
+//#define BUTTON_SPACE 8.0f
+//#define BUTTON_HEIGHT 30.0f
+//
+//#define DONE_BUTTON_WIDTH 56.0f
+//#define THUMBS_BUTTON_WIDTH 40.0f
+//#define PRINT_BUTTON_WIDTH 40.0f
+//#define EMAIL_BUTTON_WIDTH 40.0f
+//#define MARK_BUTTON_WIDTH 40.0f
 
 #define TITLE_HEIGHT 28.0f
 
@@ -85,7 +85,7 @@
         //leftScopeButton
         _leftScopeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _leftScopeButton.frame = CGRectMake(leftButtonX, BUTTON_Y, DONE_BUTTON_WIDTH, BUTTON_HEIGHT);
-		[_leftScopeButton setTitle:NSLocalizedString(@"Scope", @"button") forState:UIControlStateNormal];
+		[_leftScopeButton setTitle:NSLocalizedString(@"...", @"button") forState:UIControlStateNormal];
 		[_leftScopeButton setTitleColor:[UIColor colorWithWhite:0.0f alpha:1.0f] forState:UIControlStateNormal];
 		[_leftScopeButton setTitleColor:[UIColor colorWithWhite:1.0f alpha:1.0f] forState:UIControlStateHighlighted];
 		[_leftScopeButton addTarget:self action:@selector(leftScopeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -96,27 +96,6 @@
 		_leftScopeButton.exclusiveTouch = YES;
         [self addSubview:_leftScopeButton];
         leftButtonX += (DONE_BUTTON_WIDTH + BUTTON_SPACE);
-
-#if (READER_STANDALONE == FALSE) // Option
-
-		UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-
-		doneButton.frame = CGRectMake(leftButtonX, BUTTON_Y, DONE_BUTTON_WIDTH, BUTTON_HEIGHT);
-		[doneButton setTitle:NSLocalizedString(@"Done", @"button") forState:UIControlStateNormal];
-		[doneButton setTitleColor:[UIColor colorWithWhite:0.0f alpha:1.0f] forState:UIControlStateNormal];
-		[doneButton setTitleColor:[UIColor colorWithWhite:1.0f alpha:1.0f] forState:UIControlStateHighlighted];
-		[doneButton addTarget:self action:@selector(doneButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-		[doneButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
-		[doneButton setBackgroundImage:buttonN forState:UIControlStateNormal];
-		doneButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-		doneButton.autoresizingMask = UIViewAutoresizingNone;
-		doneButton.exclusiveTouch = YES;
-
-		[self addSubview:doneButton]; leftButtonX += (DONE_BUTTON_WIDTH + BUTTON_SPACE);
-
-		titleX += (DONE_BUTTON_WIDTH + BUTTON_SPACE); titleWidth -= (DONE_BUTTON_WIDTH + BUTTON_SPACE);
-
-#endif // end of READER_STANDALONE Option
 
 #if (READER_ENABLE_THUMBS == TRUE) // Option
 
@@ -141,6 +120,27 @@
 		CGFloat rightButtonX = viewWidth; // Right button start X position
 
 #endif // end of READER_BOOKMARKS || READER_ENABLE_MAIL || READER_ENABLE_PRINT Options
+        
+#if (READER_STANDALONE == FALSE) // Option
+        
+		UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+		doneButton.frame = CGRectMake(leftButtonX, BUTTON_Y, DONE_BUTTON_WIDTH, BUTTON_HEIGHT);
+		[doneButton setTitle:NSLocalizedString(@"Done", @"button") forState:UIControlStateNormal];
+		[doneButton setTitleColor:[UIColor colorWithWhite:0.0f alpha:1.0f] forState:UIControlStateNormal];
+		[doneButton setTitleColor:[UIColor colorWithWhite:1.0f alpha:1.0f] forState:UIControlStateHighlighted];
+		[doneButton addTarget:self action:@selector(doneButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+		[doneButton setBackgroundImage:buttonH forState:UIControlStateHighlighted];
+		[doneButton setBackgroundImage:buttonN forState:UIControlStateNormal];
+		doneButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+		doneButton.autoresizingMask = UIViewAutoresizingNone;
+		doneButton.exclusiveTouch = YES;
+        
+		[self addSubview:doneButton]; leftButtonX += (DONE_BUTTON_WIDTH + BUTTON_SPACE);
+        
+		titleX += (DONE_BUTTON_WIDTH + BUTTON_SPACE); titleWidth -= (DONE_BUTTON_WIDTH + BUTTON_SPACE);
+        
+#endif // end of READER_STANDALONE Option
 
 #if (READER_BOOKMARKS == TRUE) // Option
 
