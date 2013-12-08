@@ -43,14 +43,6 @@ name = _name;
 @synthesize leftScopeViewController = _leftScopeViewController;
 @synthesize nbItems = _nbItems;
 @synthesize tableView = _tableView;
-//- (id)initWithStyle:(UITableViewStyle)style {
-//    self = [super initWithStyle:style];
-//    if (self) {
-//        _nbItems = kMCNumItems;
-//    }
-//    
-//    return self;
-//}
 
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,9 +54,9 @@ name = _name;
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-    [super viewDidAppear:true];
+    [super viewDidLoad];
     
         if (self) {
         _nbItems = kMCNumItems;
@@ -72,7 +64,6 @@ name = _name;
 
 //    self.tableView.separatorStyle = NO;
     
-
     self.title = @"Viewer";
     [self reload:nil];
     

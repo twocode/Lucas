@@ -207,7 +207,8 @@ static AMCommandMaster *_sharedInstance = nil;
     
     // Calculate based on parentView's frame
     
-    _sharedInstance.frame = CGRectMake(0, _parentView.bounds.size.height, _parentView.bounds.size.width, kAppBarTotalHeight);
+    _sharedInstance.frame = CGRectMake(0, _parentView.bounds.size.height - kAppBarMinimalHeight, _parentView.bounds.size.width, kAppBarTotalHeight);
+    NSLOG_CGRECT("_sharedInstance %@", _sharedInstance.frame);
     
     
     [_parentView addSubview:_sharedInstance];
@@ -216,9 +217,6 @@ static AMCommandMaster *_sharedInstance = nil;
     
     
     _menuList = [[UITableView alloc] initWithFrame:CGRectMake(0, (kAppBarMinimalHeight + kAppBarFullHeight), _parentView.bounds.size.height, kAppBarMenuListHeight)];
-    
-    NSLog(@"self frame2 %@", NSStringFromCGRect(self.frame));
-    
     
     _menuList.delegate = self;
     _menuList.dataSource = self;
@@ -241,7 +239,6 @@ static AMCommandMaster *_sharedInstance = nil;
     _menuList.backgroundColor = [_appearanceContainer[_currentGroup] menuListColor];
     [self showMinimalAppBar];
     [self setButtonFrames];
-    NSLog(@"self frame3 %@", NSStringFromCGRect(self.frame));
     [self setNeedsDisplay];
 }
 

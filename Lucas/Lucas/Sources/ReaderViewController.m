@@ -319,6 +319,7 @@
 
 	CGRect viewRect = self.view.bounds; // View controller's view bounds
     viewRect.origin.y = 20;
+    viewRect.size.height = viewRect.size.height - 40.0f;
 
 	theScrollView = [[UIScrollView alloc] initWithFrame:viewRect]; // All
 
