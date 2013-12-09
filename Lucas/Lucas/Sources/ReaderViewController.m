@@ -649,7 +649,17 @@
                     if (isNavigationBarHidden == YES) {
                         [self.navigationController setNavigationBarHidden:NO animated:YES];
                         [[UIApplication sharedApplication] setStatusBarHidden:NO
-                                                                withAnimation:UIStatusBarAnimationFade];
+                                                                withAnimation:UIStatusBarAnimationSlide];
+//                        [[UIApplication sharedApplication] setStatusBarHidden:YES
+//                                                                withAnimation:UIStatusBarAnimationFade];
+//
+//                        [UIView beginAnimations: nil context:NULL];
+//                        [UIView setAnimationDuration:0.4];
+//                        [UIView setAnimationDelegate: self];
+//                        CGRect rect = self.navigationController.navigationBar.frame;
+//                        rect.origin.y = -44.0f;
+//                        self.navigationController.navigationBar.frame = rect;
+//                        [UIView commitAnimations];
                         isNavigationBarHidden = NO;
                     }
 				}
@@ -752,10 +762,21 @@
 		}
 
 //		[mainToolbar hideToolbar]; /*[mainPagebar hidePagebar]; // Hide*/
-        NSLog(@"nav bar: %@", self.navigationController);
+//        NSLog(@"nav bar: %@", self.navigationController);
+
         [self.navigationController setNavigationBarHidden:YES animated:YES];
         [[UIApplication sharedApplication] setStatusBarHidden:YES
-                                                withAnimation:UIStatusBarAnimationFade];
+                                                withAnimation:UIStatusBarAnimationSlide];
+//        [[UIApplication sharedApplication] setStatusBarHidden:NO
+//                                                withAnimation:UIStatusBarAnimationFade];
+//
+//        [UIView beginAnimations: nil context:NULL];
+//        [UIView setAnimationDuration:0.4];
+//        [UIView setAnimationDelegate: self];
+//        CGRect rect = self.navigationController.navigationBar.frame;
+//        rect.origin.y = 20.0f;
+//        self.navigationController.navigationBar.frame = rect;
+//        [UIView commitAnimations];
         isNavigationBarHidden = YES;
 
 		lastHideTime = [NSDate date];
@@ -917,7 +938,7 @@
 
 - (void)bookMarkClicked
 {
-    [_delegate setNeedsResume];
+//    [_delegate setNeedsResume];
     
 	if (printInteraction != nil) [printInteraction dismissAnimated:YES];
     

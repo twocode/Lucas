@@ -34,6 +34,7 @@ name = _name;
     NSString *_selectedBg;
     NSString *_selectedAccent;
     NSString *_selectedGroup;
+    IIViewDeckController *controller;
 }
 @end
 
@@ -99,8 +100,6 @@ name = _name;
 
 - (void)handleSingleSwipe
 {
-//    [self navigationController].view.backgroundColor = [UIColor clearColor];
-    
     NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
     
 	NSArray *pdfs = [[NSBundle mainBundle] pathsForResourcesOfType:@"pdf" inDirectory:nil];
@@ -115,23 +114,37 @@ name = _name;
         readerViewController.view.backgroundColor = [UIColor darkGrayColor];
         
         if ([readerViewController.navigationItem respondsToSelector:@selector(leftBarButtonItems)]) {
-            readerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            readerViewController.modalPresentationStyle = UIModalPresentationFullScreen;
-            [self.navigationController pushViewController:readerViewController animated:YES
-             ];
             
+            controller = [[IIViewDeckController alloc] initWithCenterViewController:readerViewController];
+            controller.delegate = (id)self;
             readerViewController.delegate = self; // Set the ReaderViewController delegate to self
+            
+            
+            controller.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
             
             _leftScopeViewController = [[LeftScopeViewController alloc] initWithNibName:@"LeftScopeViewController" bundle:nil];
             _leftScopeViewController = [_leftScopeViewController initWithReaderDocument:document];
             //    initWithReaderDocument:document];
             _leftScopeViewController.delegate = (id)readerViewController;
             IISideController *leftSideController = [[IISideController alloc] initWithViewController:(UIViewController *) _leftScopeViewController constrained:250.0f];
-            self.viewDeckController.rightController = leftSideController;
-            [self.viewDeckController setSizeMode:IIViewDeckViewSizeMode];
+            controller.rightController = leftSideController;
+            [controller setSizeMode:IIViewDeckViewSizeMode];
+            [controller setRightSize:250.0f];
             
-            [self.viewDeckController setRightSize:250.0f];
+            UIBarButtonItem *rightScopeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(leftScopeButtonClicked:)];
+            UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:Nil action:Nil];
+            fixedSpace.width = 20.0f;
+            UIBarButtonItem *bookMarkButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:readerViewController action:@selector(bookMarkClicked)];
+            UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:Nil];
+            controller.navigationItem.rightBarButtonItems = @[rightScopeButton, fixedSpace, bookMarkButton, fixedSpace];
+            controller.navigationItem.leftItemsSupplementBackButton = YES;
+            controller.navigationItem.leftBarButtonItems = @[fixedSpace, actionButton];
+            
             [_leftScopeViewController.view setNeedsDisplay];
+            readerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            readerViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+            [self.navigationController pushViewController:controller animated:YES
+             ];
         }
     }
 }
@@ -150,18 +163,19 @@ name = _name;
     
 #endif // DEMO_VIEW_CONTROLLER_PUSH
     
-    self.viewDeckController.rightController = nil;
+    controller.rightController = nil;
 }
 
 - (void)leftScopeButtonClicked:(UIButton *)button
 {
-    [self.viewDeckController toggleRightView];
+    [controller toggleRightView];
     //    [self.viewDeckController.view setNeedsDisplay];
 }
 
 - (void)setNeedsResume
 {
-    [self.viewDeckController closeRightView];
+    [controller closeRightView];
+//    sleep(1);
 
 //    [AMCommandMaster reload];
 }

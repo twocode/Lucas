@@ -24,11 +24,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    IIViewDeckController *deckController = [self generateControllerStack];
+//    IIViewDeckController *deckController = [self generateControllerStack];
     
-    self.centerController = deckController.centerController;
-    self.window.rootViewController = deckController;
-
+//    self.centerController = deckController.centerController;
+//    self.window.rootViewController = deckController;
+//    self.centerController = (UIViewController *)[self generateControllerStack];
+    self.window.rootViewController = (UIViewController *)[self generateControllerStack];
     
 //    NSLog(@"In application(). frame: %@", NSStringFromCGRect(deckController.view.frame));
     
@@ -58,8 +59,9 @@
     
     
     paraViewerViewController = [[UINavigationController alloc] initWithRootViewController:paraViewerViewController];
-    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:paraViewerViewController];
-    [deckController setPanningMode:IIViewDeckNavigationBarPanning];
+//    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:paraViewerViewController];
+//    [deckController setPanningMode:IIViewDeckNavigationBarPanning];
+//    deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
     
 //    leftSideController.constrainedSize = 100;
 //    deckController.leftSize = 100;
@@ -69,7 +71,7 @@
 //    deckController.rightController=nil;
 
 //    [deckController toggleLeftViewAnimated:YES];
-    return deckController;
+    return paraViewerViewController;
 }
 - (void)applicationWillResignActive:(UIApplication *)application
 {
