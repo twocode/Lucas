@@ -73,7 +73,6 @@ name = _name;
     
 	CGRect viewBounds = self.view.bounds;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(viewBounds.origin.x, viewBounds.origin.y, viewBounds.size.width, viewBounds.size.height - 44.0f)];
-    NSLOG_CGRECT("tableview", viewBounds);
     [_tableView setDelegate:self];
     [_tableView setDataSource:self];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -114,28 +113,28 @@ name = _name;
         readerViewController.view.backgroundColor = [UIColor darkGrayColor];
         
         if ([readerViewController.navigationItem respondsToSelector:@selector(leftBarButtonItems)]) {
-            
-            controller = [[IIViewDeckController alloc] initWithCenterViewController:readerViewController];
-            controller.delegate = (id)self;
             readerViewController.delegate = self; // Set the ReaderViewController delegate to self
-            
-            
-            controller.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
             
             _leftScopeViewController = [[LeftScopeViewController alloc] initWithNibName:@"LeftScopeViewController" bundle:nil];
             _leftScopeViewController = [_leftScopeViewController initWithReaderDocument:document];
-            //    initWithReaderDocument:document];
             _leftScopeViewController.delegate = (id)readerViewController;
-            IISideController *leftSideController = [[IISideController alloc] initWithViewController:(UIViewController *) _leftScopeViewController constrained:250.0f];
+            IISideController *leftSideController = [[IISideController alloc] initWithViewController:(UIViewController *) _leftScopeViewController constrained:200.0];
+            
+            controller = [[IIViewDeckController alloc] initWithCenterViewController:readerViewController];
+            controller.delegate = (id)self;
+            controller.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
+
             controller.rightController = leftSideController;
             [controller setSizeMode:IIViewDeckViewSizeMode];
-            [controller setRightSize:250.0f];
+            [controller setRightSize:200.0f];
+            controller.rightSize = 200.0f;
             
-            UIBarButtonItem *rightScopeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(leftScopeButtonClicked:)];
+            UIBarButtonItem *rightScopeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"list.png"] style:UIBarButtonItemStylePlain  target:self action:@selector(leftScopeButtonClicked:)];
             UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:Nil action:Nil];
             fixedSpace.width = 20.0f;
             UIBarButtonItem *bookMarkButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:readerViewController action:@selector(bookMarkClicked)];
             UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:Nil];
+            
             controller.navigationItem.rightBarButtonItems = @[rightScopeButton, fixedSpace, bookMarkButton, fixedSpace];
             controller.navigationItem.leftItemsSupplementBackButton = YES;
             controller.navigationItem.leftBarButtonItems = @[fixedSpace, actionButton];

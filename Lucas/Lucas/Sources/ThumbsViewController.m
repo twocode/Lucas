@@ -90,9 +90,12 @@
 
 	assert(delegate != nil); assert(document != nil);
 
-//	self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+	self.view.backgroundColor = [UIColor darkGrayColor];
 
-	CGRect viewRect = self.view.bounds; // View controller's view bounds
+	CGRect viewRect = self.view.frame; // View controller's view bounds
+    CGRect viewBounds = self.view.bounds; // View controller's view bounds
+    NSLOG_CGRECT("viewBounds", viewBounds)
+    NSLOG_CGRECT("viewFrame", viewRect)
 
 //	NSString *toolbarTitle = [document.fileName stringByDeletingPathExtension];
 
@@ -109,6 +112,7 @@
 	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
 	{
 		thumbsRect.origin.y += TOOLBAR_HEIGHT; thumbsRect.size.height -= TOOLBAR_HEIGHT; thumbsRect.size.width = 200;
+        NSLOG_CGRECT("viewBounds", thumbsRect);
 	}
 	else // Set UIScrollView insets for non-UIUserInterfaceIdiomPad case
 	{
@@ -354,7 +358,8 @@
 		defaultRect.size.width = newWidth; defaultRect.origin.x += offsetX;
 
 		imageView.frame = defaultRect; // Update the image view frame
-
+        
+        NSLOG_CGRECT("defaultRect", defaultRect)
 		CGFloat fontSize = (([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? 19.0f : 16.0f);
 
 		textLabel = [[UILabel alloc] initWithFrame:defaultRect];

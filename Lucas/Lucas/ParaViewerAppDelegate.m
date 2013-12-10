@@ -38,7 +38,7 @@
     return YES;
 }
 
-- (IIViewDeckController *)generateControllerStack
+- (UIViewController *)generateControllerStack
 {
     
 //    ParaViewerViewController *paraViewerViewController = [[ParaViewerViewController alloc] initWithNibName:@"ParaViewerViewController" bundle:nil];

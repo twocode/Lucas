@@ -208,8 +208,6 @@ static AMCommandMaster *_sharedInstance = nil;
     // Calculate based on parentView's frame
     
     _sharedInstance.frame = CGRectMake(0, _parentView.bounds.size.height - kAppBarMinimalHeight, _parentView.bounds.size.width, kAppBarTotalHeight);
-    NSLOG_CGRECT("_sharedInstance %@", _sharedInstance.frame);
-    
     
     [_parentView addSubview:_sharedInstance];
     
