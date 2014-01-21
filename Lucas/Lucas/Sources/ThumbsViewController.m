@@ -93,9 +93,6 @@
 	self.view.backgroundColor = [UIColor darkGrayColor];
 
 	CGRect viewRect = self.view.frame; // View controller's view bounds
-    CGRect viewBounds = self.view.bounds; // View controller's view bounds
-    NSLOG_CGRECT("viewBounds", viewBounds)
-    NSLOG_CGRECT("viewFrame", viewRect)
 
 //	NSString *toolbarTitle = [document.fileName stringByDeletingPathExtension];
 
@@ -174,7 +171,7 @@
 	return YES;
 }
 
-/*
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
 }
@@ -187,7 +184,7 @@
 {
 	//if (fromInterfaceOrientation == self.interfaceOrientation) return;
 }
-*/
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -359,7 +356,6 @@
 
 		imageView.frame = defaultRect; // Update the image view frame
         
-        NSLOG_CGRECT("defaultRect", defaultRect)
 		CGFloat fontSize = (([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? 19.0f : 16.0f);
 
 		textLabel = [[UILabel alloc] initWithFrame:defaultRect];

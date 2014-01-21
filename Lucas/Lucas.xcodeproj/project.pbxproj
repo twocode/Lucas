@@ -28,7 +28,7 @@
 		77CB0361184F71C500AA0BAB /* saveIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CB035D184F71C500AA0BAB /* saveIcon.png */; };
 		77CB0362184F71C500AA0BAB /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CB035E184F71C500AA0BAB /* settings.png */; };
 		77CE1A8C17D8D01C00787C26 /* ThumbsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CE1A8A17D8D01C00787C26 /* ThumbsViewController.m */; };
-		77F1292617D4D6A90085F09E /* LeftScopeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77F1292517D4D6A90085F09E /* LeftScopeViewController.xib */; };
+		77EBAE6D185F49B60035EBEE /* LeftScopeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77EBAE6C185F49B60035EBEE /* LeftScopeViewController.xib */; };
 		77F964A817D615F500A04D50 /* AppIcon-057.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9646B17D615F400A04D50 /* AppIcon-057.png */; };
 		77F964A917D615F500A04D50 /* AppIcon-072.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9646C17D615F400A04D50 /* AppIcon-072.png */; };
 		77F964AA17D615F500A04D50 /* AppIcon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 77F9646D17D615F400A04D50 /* AppIcon-114.png */; };
@@ -108,7 +108,7 @@
 		77CB035E184F71C500AA0BAB /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings.png; path = Lucas/settings.png; sourceTree = SOURCE_ROOT; };
 		77CE1A8917D8D01B00787C26 /* ThumbsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbsViewController.h; sourceTree = "<group>"; };
 		77CE1A8A17D8D01C00787C26 /* ThumbsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbsViewController.m; sourceTree = "<group>"; };
-		77F1292517D4D6A90085F09E /* LeftScopeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftScopeViewController.xib; sourceTree = "<group>"; };
+		77EBAE6C185F49B60035EBEE /* LeftScopeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftScopeViewController.xib; sourceTree = "<group>"; };
 		77F9646B17D615F400A04D50 /* AppIcon-057.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-057.png"; sourceTree = "<group>"; };
 		77F9646C17D615F400A04D50 /* AppIcon-072.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-072.png"; sourceTree = "<group>"; };
 		77F9646D17D615F400A04D50 /* AppIcon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-114.png"; sourceTree = "<group>"; };
@@ -356,9 +356,9 @@
 				7790390717EF214F00BDF489 /* SwipeTableView */,
 				770A1F1E17CE39AA00885C73 /* LeftScopeViewController.h */,
 				770A1F1F17CE39AB00885C73 /* LeftScopeViewController.m */,
+				77EBAE6C185F49B60035EBEE /* LeftScopeViewController.xib */,
 				77FE7CF717C7ABC5002698B7 /* ParaViewerAppDelegate.h */,
 				77FE7CF817C7ABC5002698B7 /* ParaViewerAppDelegate.m */,
-				77F1292517D4D6A90085F09E /* LeftScopeViewController.xib */,
 				77FE7D0017C7ABC5002698B7 /* ParaViewerViewController.h */,
 				77FE7D0117C7ABC5002698B7 /* ParaViewerViewController.m */,
 				77FE7CEF17C7ABC5002698B7 /* Supporting Files */,
@@ -437,7 +437,6 @@
 				77FE7CFB17C7ABC5002698B7 /* Default.png in Resources */,
 				77FE7CFD17C7ABC5002698B7 /* Default@2x.png in Resources */,
 				77FE7CFF17C7ABC5002698B7 /* Default-568h@2x.png in Resources */,
-				77F1292617D4D6A90085F09E /* LeftScopeViewController.xib in Resources */,
 				77CB0360184F71C500AA0BAB /* help.png in Resources */,
 				77F964A817D615F500A04D50 /* AppIcon-057.png in Resources */,
 				77CB035F184F71C500AA0BAB /* deleteIcon.png in Resources */,
@@ -468,6 +467,7 @@
 				77F964B917D615F500A04D50 /* Reader-Thumbs@2x.png in Resources */,
 				77F964BA17D615F500A04D50 /* Localizable.strings in Resources */,
 				77F964BB17D615F500A04D50 /* Reader.pdf in Resources */,
+				77EBAE6D185F49B60035EBEE /* LeftScopeViewController.xib in Resources */,
 				77129553184CB7F100E74928 /* check@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -338,7 +338,6 @@ static AMCommandMaster *_sharedInstance = nil;
 }
 
 - (void)showMinimalAppBar {
-    NSLog(@"parentView frame4 %@", NSStringFromCGRect(_parentView.frame));
     [UIView animateWithDuration:kAnimationDuration animations:^{
         self.frame = CGRectMake(0, (_parentView.bounds.size.height - kAppBarMinimalHeight), _parentView.bounds.size.width, self.frame.size.height);
         [self animateButtonFramesToState:CMAppBarMinimal];
@@ -348,8 +347,6 @@ static AMCommandMaster *_sharedInstance = nil;
 }
 
 - (void)showFullAppBar {
-    NSLog(@"parentView frame5 %@", NSStringFromCGRect(_parentView.frame));
-
     [UIView animateWithDuration:kAnimationDuration animations:^{
         self.frame = CGRectMake(0, (_parentView.bounds.size.height - (kAppBarMinimalHeight + kAppBarFullHeight)), _parentView.bounds.size.width, self.frame.size.height);
         [self animateButtonFramesToState:CMAppBarFull];
@@ -360,13 +357,12 @@ static AMCommandMaster *_sharedInstance = nil;
 
 - (void)reload {
 //        self.frame = CGRectMake(0, _parentView.bounds.size.width, _parentView.bounds.size.height, kAppBarTotalHeight);
-//    
-////        NSLog(@"parentView frame %@", NSStringFromCGRect(_parentView.frame));
+////    
+//        NSLog(@"parentView frame %@", NSStringFromCGRect(_parentView.frame));
 ////        NSLog(@"self frame %@", NSStringFromCGRect(self.frame));
 //    [self setNeedsDisplay];
     self.frame = CGRectMake(0, (_parentView.bounds.size.height - kAppBarMinimalHeight), _parentView.bounds.size.width, self.frame.size.height);
     [self animateButtonFramesToState:CMAppBarMinimal];
-    NSLog(@"frame %@", NSStringFromCGRect(self.frame));
 //    [self setNeedsDisplay];
 
 }
