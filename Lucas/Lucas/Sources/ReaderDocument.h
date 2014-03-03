@@ -42,6 +42,11 @@
 
 + (ReaderDocument *)unarchiveFromFileName:(NSString *)filename password:(NSString *)phrase;
 
++ (NSString *)archiveFilePath:(NSString *)filename;
++ (NSString *)documentsPath;
+
+
+
 - (id)initWithFilePath:(NSString *)fullFilePath password:(NSString *)phrase;
 
 - (void)saveReaderDocument;

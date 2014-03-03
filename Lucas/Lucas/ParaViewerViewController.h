@@ -28,6 +28,7 @@
 @property (nonatomic, strong) LeftScopeViewController *leftScopeViewController;
 @property(nonatomic, assign) NSUInteger nbItems;
 @property (nonatomic, strong) UITableView *tableView;
+@property (strong, nonatomic) NSArray *bookInfoArray;
 
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 @end

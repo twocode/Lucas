@@ -81,5 +81,6 @@ typedef NS_ENUM(NSUInteger, CMAppBarState) {
 @property (nonatomic, readonly) NSString *currentGroup;
 @property (nonatomic) bool autoHide;
 @property (nonatomic, strong) id<CommandMasterDelegate> delegate;
+@property (nonatomic, readonly) CGRect referenceBounds;
 
 @end

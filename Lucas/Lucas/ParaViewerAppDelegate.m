@@ -22,8 +22,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+//    NSLOG_CGRECT("<<<>>> In AppDelegate::application() - bounds", [[UIScreen mainScreen] bounds]);
+//    NSLOG_CGRECT("<<<>>> In AppDelegate::application() - referencebounds", [self referenceBounds]);
+
 //    IIViewDeckController *deckController = [self generateControllerStack];
     
 //    self.centerController = deckController.centerController;
@@ -37,7 +40,16 @@
     [self.window makeKeyAndVisible];
     return YES;
 }
-
+- (CGRect) referenceBounds {
+    //    if (self.referenceView) {
+    //        return self.referenceView.bounds;
+    //    }
+    CGRect bounds = [[UIScreen mainScreen] bounds]; // portrait bounds
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+        bounds.size = CGSizeMake(bounds.size.height, bounds.size.width);
+    }
+    return bounds;
+}
 - (UIViewController *)generateControllerStack
 {
     
@@ -54,8 +66,12 @@
                                   [AMCommandButton createButtonWithImage:[UIImage imageNamed:@"help"] andTitle:@"help"],
                                   [AMCommandButton createButtonWithImage:[UIImage imageNamed:@"settings"] andTitle:@"settings"]]
                        forGroup:@"TestGroup2"];
+    [AMCommandMaster setBackgroundColor:[UIColor clearColor] forGroup:@"TestGroup" includeMenuList:YES];
+//    [AMCommandMaster setBackgroundColorForAllGroups:[UIColor clearColor] includeMenuList:YES];
     [AMCommandMaster addToView:paraViewerViewController.view andLoadGroup:@"TestGroup"];
     [AMCommandMaster setDelegate:(id)paraViewerViewController];
+    
+    
     
     
     paraViewerViewController = [[UINavigationController alloc] initWithRootViewController:paraViewerViewController];
@@ -71,6 +87,7 @@
 //    deckController.rightController=nil;
 
 //    [deckController toggleLeftViewAnimated:YES];
+    
     return paraViewerViewController;
 }
 - (void)applicationWillResignActive:(UIApplication *)application

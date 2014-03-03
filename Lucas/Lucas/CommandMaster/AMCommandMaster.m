@@ -187,6 +187,11 @@ static AMCommandMaster *_sharedInstance = nil;
     [_sharedInstance reload];
 }
 
++ (void) referenceBounds {
+    [self sharedInstance];
+    [_sharedInstance referenceBounds];
+}
+
 - (id)init {
     if (self = [super init]) {
         self.backgroundColor = kDefaultBackgroundColor;
@@ -207,8 +212,9 @@ static AMCommandMaster *_sharedInstance = nil;
     
     // Calculate based on parentView's frame
     
-    _sharedInstance.frame = CGRectMake(0, _parentView.bounds.size.height - kAppBarMinimalHeight, _parentView.bounds.size.width, kAppBarTotalHeight);
-    
+//    _sharedInstance.frame = CGRectMake(0, _parentView.bounds.size.height - kAppBarMinimalHeight, _parentView.bounds.size.width, kAppBarTotalHeight);
+    _sharedInstance.frame = CGRectMake(0, [self referenceBounds].size.height - kAppBarMinimalHeight, [self referenceBounds].size.width, kAppBarTotalHeight);
+//    NSLOG_CGRECT("<<<>>> In addToView() - _sharedInstance", _sharedInstance.frame);
     [_parentView addSubview:_sharedInstance];
     
     // Add one UITableView, so that it can just be refreshed with different data.
@@ -223,6 +229,9 @@ static AMCommandMaster *_sharedInstance = nil;
     _menuList.separatorStyle = UITableViewCellSeparatorStyleNone;
     _menuListDataSource = [[NSArray alloc] init];
     [self addSubview:_menuList];
+//    NSLOG_CGRECT("<<<>>>In AM::initWithFrame() ", self.frame);
+//    NSLOG_CGRECT("<<<>>>In AM::initWithFrame() ", self.bounds);
+//    NSLOG_CGRECT("<<<>>>In AM::initWithFrame() ", [self referenceBounds]);
 }
 
 // Loads up the group's icons
@@ -365,6 +374,17 @@ static AMCommandMaster *_sharedInstance = nil;
     [self animateButtonFramesToState:CMAppBarMinimal];
 //    [self setNeedsDisplay];
 
+}
+
+- (CGRect) referenceBounds {
+//    if (self.referenceView) {
+//        return self.referenceView.bounds;
+//    }
+    CGRect bounds = [[UIScreen mainScreen] bounds]; // portrait bounds
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+        bounds.size = CGSizeMake(bounds.size.height, bounds.size.width);
+    }
+    return bounds;
 }
 
 - (void)showMenuList {

@@ -37,6 +37,7 @@
 - (void)leftScopeButtonClicked:(UIButton *)button;
 - (void)setNeedsResume;
 
+
 @end
 
 @interface ReaderViewController : UIViewController
