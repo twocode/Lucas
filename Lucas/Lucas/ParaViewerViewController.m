@@ -61,13 +61,13 @@ name = _name;
 {
     [super viewDidLoad];
     
-    NSString *bookInfoPlistPath = [[NSBundle mainBundle] pathForResource:@"pdf-list" ofType:@"plist"];
-    NSDictionary *bookInfoDictionay = [[NSDictionary alloc] initWithContentsOfFile:bookInfoPlistPath];
-    _bookInfoArray = bookInfoDictionay[@"bookItem"];
+    _bookInfoArray = [[NSBundle bundleWithPath:[ReaderDocument documentsPath]] pathsForResourcesOfType:@"pdf" inDirectory:nil];
+    NSString *book;
+    for (book in _bookInfoArray) {
+        [ReaderDocument withDocumentFilePath:book password:nil];
+    }
     
-//    self.tableView.separatorStyle = NO;
-    
-    self.title = @"Viewer";
+    self.title = @"Pamphlet";
     
     self.view.backgroundColor = [UIColor darkGrayColor]; //
     [[self.navigationController navigationBar] setTranslucent:NO];
@@ -183,15 +183,11 @@ name = _name;
 - (void)leftScopeButtonClicked:(UIButton *)button
 {
     [controller toggleRightView];
-    //    [self.viewDeckController.view setNeedsDisplay];
 }
 
 - (void)setNeedsResume
 {
     [controller closeRightView];
-//    sleep(1);
-
-//    [AMCommandMaster reload];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -199,8 +195,6 @@ name = _name;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-//    return _nbItems;
     return [_bookInfoArray count];
 }
 
@@ -227,28 +221,20 @@ name = _name;
     //
     [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
     
-    NSString *sBookItem = _bookInfoArray[0];
-    cell.textLabel.text = sBookItem;
-    NSString *sBookItemPlistPath = [ReaderDocument archiveFilePath:sBookItem];
+    NSString *sBookItem = _bookInfoArray[indexPath.row];
     ReaderDocument *doc = [ReaderDocument unarchiveFromFileName:sBookItem password:false];
-    ReaderThumbView *thumbView;
-    ReaderThumbRequest *thumbRequest = [[ReaderThumbRequest alloc] initWithView:thumbView fileURL:[[NSURL alloc] initWithString:sBookItem] password:false guid:doc.guid page:1 size:cell.imageView.frame.size];
     NSString *sCacheFolder = [ReaderThumbCache thumbCachePathForGUID:doc.guid];
-    id thumbCache = [[ReaderThumbCache alloc] init];
-//    cache = [thumbCache thumbRequest:thumbRequest priority:YES];
 
-    NSArray *pdfs = [[NSBundle bundleWithPath:[ReaderDocument documentsPath]] pathsForResourcesOfType:nil inDirectory:nil];
     NSString *sFirstPageThumbPath = [sCacheFolder stringByAppendingString:@"/0000001-0184x0184.png"];
-    NSLog(@"first page thumb path: %@", sFirstPageThumbPath);
+    NSLog(@"title: %@   first page thumb path: %@", doc.fileTitle, sFirstPageThumbPath);
+    cell.textLabel.text = doc.fileTitle;
     cell.imageView.image = [UIImage imageWithContentsOfFile:sFirstPageThumbPath];
     cell.imageView.bounds = CGRectOffset(cell.frame, 5, 5);
     [cell.imageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
     [cell.imageView.layer setBorderWidth: 2.0];
     
-    
-//    NSDictionary *dBookItemPlist = [[NSDictionary alloc] initWithContentsOfFile:sBookItemPlistPath];
-    
-    NSLog(@"%@", doc.pageCount);
+//    NSLog(@"%@", doc.pageCount);
+//    NSLog(@"%@", doc.fileTitle);
     
     cell.modeForState1 = MCSwipeTableViewCellModeSwitch;
     cell.modeForState2 = MCSwipeTableViewCellModeExit;

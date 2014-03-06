@@ -37,6 +37,9 @@
 @property (nonatomic, strong, readonly) NSString *fileName;
 @property (nonatomic, strong, readonly) NSString *password;
 @property (nonatomic, strong, readonly) NSURL *fileURL;
+@property (nonatomic, strong, readonly) NSString *fileTitle;
+@property (nonatomic, strong, readonly) NSString *authorName;
+@property (nonatomic, strong, readonly) NSString *keyWords;
 
 + (ReaderDocument *)withDocumentFilePath:(NSString *)filename password:(NSString *)phrase;
 

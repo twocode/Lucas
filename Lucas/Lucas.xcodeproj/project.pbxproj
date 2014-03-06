@@ -20,6 +20,7 @@
 		77129557184CB7F100E74928 /* cross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77129551184CB7F100E74928 /* cross@2x.png */; };
 		7712955D184CC5AA00E74928 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 7712955B184CC5AA00E74928 /* list.png */; };
 		7712955E184CC5AA00E74928 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7712955C184CC5AA00E74928 /* list@2x.png */; };
+		7777649D18B2408A00348907 /* pdf-list.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7777649C18B2408A00348907 /* pdf-list.plist */; };
 		7790390617EF20F200BDF489 /* MCSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7790390517EF20F200BDF489 /* MCSwipeTableViewCell.m */; };
 		77CB0358184F70D600AA0BAB /* AMCommandButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CB0355184F70D600AA0BAB /* AMCommandButton.m */; };
 		77CB0359184F70D600AA0BAB /* AMCommandMaster.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CB0357184F70D600AA0BAB /* AMCommandMaster.m */; };
@@ -96,6 +97,7 @@
 		77129551184CB7F100E74928 /* cross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cross@2x.png"; path = "Lucas/cross@2x.png"; sourceTree = SOURCE_ROOT; };
 		7712955B184CC5AA00E74928 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = list.png; path = Lucas/list.png; sourceTree = SOURCE_ROOT; };
 		7712955C184CC5AA00E74928 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "list@2x.png"; path = "Lucas/list@2x.png"; sourceTree = SOURCE_ROOT; };
+		7777649C18B2408A00348907 /* pdf-list.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "pdf-list.plist"; sourceTree = "<group>"; };
 		7790390417EF20F200BDF489 /* MCSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSwipeTableViewCell.h; sourceTree = "<group>"; };
 		7790390517EF20F200BDF489 /* MCSwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSwipeTableViewCell.m; sourceTree = "<group>"; };
 		77CB0354184F70D600AA0BAB /* AMCommandButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMCommandButton.h; path = CommandMaster/AMCommandButton.h; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				77FE7CF017C7ABC5002698B7 /* Lucas-Info.plist */,
+				7777649C18B2408A00348907 /* pdf-list.plist */,
 				77FE7CF117C7ABC5002698B7 /* InfoPlist.strings */,
 				77FE7CF417C7ABC5002698B7 /* main.m */,
 				77FE7CF617C7ABC5002698B7 /* Lucas-Prefix.pch */,
@@ -441,6 +444,7 @@
 				77F964A817D615F500A04D50 /* AppIcon-057.png in Resources */,
 				77CB035F184F71C500AA0BAB /* deleteIcon.png in Resources */,
 				77F964A917D615F500A04D50 /* AppIcon-072.png in Resources */,
+				7777649D18B2408A00348907 /* pdf-list.plist in Resources */,
 				77F964AA17D615F500A04D50 /* AppIcon-114.png in Resources */,
 				77CB0362184F71C500AA0BAB /* settings.png in Resources */,
 				77F964AB17D615F500A04D50 /* AppIcon-144.png in Resources */,

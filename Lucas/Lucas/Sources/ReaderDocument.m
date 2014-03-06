@@ -48,6 +48,12 @@
 	NSString *_password;
 
 	NSURL *_fileURL;
+    
+    NSString *_fileTitle;
+    
+    NSString *_authorName;
+    
+    NSString *_keyWords;
 }
 
 #pragma mark Properties
@@ -60,6 +66,9 @@
 @synthesize bookmarks = _bookmarks;
 @synthesize lastOpen = _lastOpen;
 @synthesize password = _password;
+@synthesize fileTitle = _fileTitle;
+@synthesize authorName = _authorName;
+@synthesize keyWords = _keyWords;
 @dynamic fileName, fileURL;
 
 #pragma mark ReaderDocument class methods
@@ -220,6 +229,29 @@
 			{
 				NSInteger pageCount = CGPDFDocumentGetNumberOfPages(thePDFDocRef);
 
+                CGPDFDictionaryRef info;
+                if ((info = CGPDFDocumentGetInfo(thePDFDocRef)) == NULL) {
+                    NSAssert(NO, @"CGPDFDictionaryGetString == NULL, in%s, in %d", __func__, __LINE__);
+                }
+                char *titleKey = "Title";
+                char *authorKey = "Author";
+                char *keywordsKey = "Keywords";
+                CGPDFStringRef titleStringRef, authorStringRef, keywordsString;
+                if (CGPDFDictionaryGetString(info, titleKey, &titleStringRef)) {
+                    _fileTitle = (__bridge NSString *)CGPDFStringCopyTextString(titleStringRef);
+                } else {
+                    _fileTitle = [[fullFilePath lastPathComponent] stringByDeletingPathExtension];
+                }
+                if (CGPDFDictionaryGetString(info, authorKey, &authorStringRef)) {
+                    _authorName = (__bridge NSString *)CGPDFStringCopyTextString(authorStringRef);
+                } else {
+                    _authorName = @"";
+                }
+                if (CGPDFDictionaryGetString(info, keywordsKey, &keywordsString)) {
+                    _keyWords = (__bridge NSString *)CGPDFStringCopyTextString(keywordsString);
+                } else {
+                    _keyWords = @"";
+                }
 				_pageCount = [NSNumber numberWithInteger:pageCount];
 
 				CGPDFDocumentRelease(thePDFDocRef); // Cleanup
@@ -269,7 +301,10 @@
 {
 	NSString *archiveFilePath = [ReaderDocument archiveFilePath:filename];
 
+    NSLog(@"archivefilePath: %@", archiveFilePath);
 	return [NSKeyedArchiver archiveRootObject:self toFile:archiveFilePath];
+//    [NSKeyedArchiver archiveRootObject:self toFile:archiveFilePath];
+//    ReaderDocument *document = [NSKeyedUnarchiver unarchiveObjectWithFile:archiveFilePath];
 }
 
 - (void)saveReaderDocument
@@ -322,6 +357,12 @@
 	[encoder encodeObject:_fileSize forKey:@"FileSize"];
 
 	[encoder encodeObject:_lastOpen forKey:@"LastOpen"];
+    
+    [encoder encodeObject:_fileTitle forKey:@"FileTitle"];
+    
+    [encoder encodeObject:_authorName forKey:@"AuthorName"];
+    
+    [encoder encodeObject:_keyWords forKey:@"KeyWords"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -343,6 +384,12 @@
 		_fileSize = [decoder decodeObjectForKey:@"FileSize"];
 
 		_lastOpen = [decoder decodeObjectForKey:@"LastOpen"];
+        
+        _fileTitle = [decoder decodeObjectForKey:@"FileTitle"];
+        
+        _authorName = [decoder decodeObjectForKey:@"AuthorName"];
+        
+        _keyWords = [decoder decodeObjectForKey:@"KeyWords"];
 
 		if (_guid == nil) _guid = [ReaderDocument GUID];
 
