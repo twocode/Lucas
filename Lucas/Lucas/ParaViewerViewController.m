@@ -111,15 +111,10 @@ name = _name;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)handleSingleSwipe
+- (void)handleSingleSwipe:(NSIndexPath *)indexPath
 {
-    NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
-    
-	NSArray *pdfs = [[NSBundle mainBundle] pathsForResourcesOfType:@"pdf" inDirectory:nil];
-//    NSArray *pdfs = [[NSBundle bundleWithPath:[ReaderDocument documentsPath]] pathsForResourcesOfType:nil inDirectory:nil];//important
-    
-	NSString *filePath = [pdfs lastObject]; assert(filePath != nil); // Path to last PDF file
-    
+	NSString *filePath = [NSString stringWithFormat:@"%@/%@", [NSBundle bundleWithPath:[ReaderDocument documentsPath]], _bookInfoArray[indexPath.row]];
+    NSString *phrase = nil;
 	ReaderDocument *document = [ReaderDocument withDocumentFilePath:filePath password:phrase];
     
 	if (document != nil) // Must have a valid ReaderDocument object in order to proceed with things
@@ -337,7 +332,7 @@ name = _name;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //    ParaViewerViewController *tableViewController = [[ParaViewerViewController alloc] init];
 //    [self.navigationController pushViewController:tableViewController animated:YES];
-    [self handleSingleSwipe];
+    [self handleSingleSwipe:indexPath];
     [_tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
