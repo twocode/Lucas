@@ -49,6 +49,11 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellMode) {
 @end
 
 @interface MCSwipeTableViewCell : UITableViewCell
+//{
+//    UILabel *titleLabel;
+//    UILabel *authorLabel;
+//    UIImageView *thumbView;
+//}
 
 @property (nonatomic, assign) id <MCSwipeTableViewCellDelegate> delegate;
 
@@ -82,6 +87,10 @@ typedef NS_ENUM(NSUInteger, MCSwipeTableViewCellMode) {
 @property (nonatomic, assign) BOOL isDragging;
 @property (nonatomic, assign) BOOL shouldDrag;
 @property (nonatomic, assign) BOOL shouldAnimatesIcons;
+
+@property (nonatomic, retain) UILabel *titleLabel;
+@property (nonatomic, retain) UILabel *authorLabel;
+@property (nonatomic, retain) UIImageView *thumbView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier

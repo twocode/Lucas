@@ -40,6 +40,7 @@
 @property (nonatomic, strong, readonly) NSString *fileTitle;
 @property (nonatomic, strong, readonly) NSString *authorName;
 @property (nonatomic, strong, readonly) NSString *keyWords;
+@property (nonatomic, strong, readonly) UIImage *thumbImg;
 
 + (ReaderDocument *)withDocumentFilePath:(NSString *)filename password:(NSString *)phrase;
 

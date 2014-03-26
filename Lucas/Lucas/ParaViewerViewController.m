@@ -218,18 +218,13 @@ name = _name;
     
     NSString *sBookItem = _bookInfoArray[indexPath.row];
     ReaderDocument *doc = [ReaderDocument unarchiveFromFileName:sBookItem password:false];
-    NSString *sCacheFolder = [ReaderThumbCache thumbCachePathForGUID:doc.guid];
-
-    NSString *sFirstPageThumbPath = [sCacheFolder stringByAppendingString:@"/0000001-0184x0184.png"];
-    NSLog(@"title: %@   first page thumb path: %@", doc.fileTitle, sFirstPageThumbPath);
-    cell.textLabel.text = doc.fileTitle;
-    cell.imageView.image = [UIImage imageWithContentsOfFile:sFirstPageThumbPath];
-    cell.imageView.bounds = CGRectOffset(cell.frame, 5, 5);
-    [cell.imageView.layer setBorderColor: [[UIColor blackColor] CGColor]];
-    [cell.imageView.layer setBorderWidth: 2.0];
-    
-//    NSLog(@"%@", doc.pageCount);
-//    NSLog(@"%@", doc.fileTitle);
+    cell.titleLabel.text = doc.fileTitle;
+    cell.authorLabel.text = doc.authorName;
+    cell.thumbView.image = doc.thumbImg;
+//    NSLog(@"title: %@", cell.titleLabel.text);
+//    cell.imageView.bounds = CGRectOffset(cell.frame, 5, 5);
+    [cell.thumbView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
+    [cell.thumbView.layer setBorderWidth: 1.5];
     
     cell.modeForState1 = MCSwipeTableViewCellModeSwitch;
     cell.modeForState2 = MCSwipeTableViewCellModeExit;

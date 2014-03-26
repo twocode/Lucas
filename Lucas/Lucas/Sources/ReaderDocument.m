@@ -54,6 +54,8 @@
     NSString *_authorName;
     
     NSString *_keyWords;
+    
+    UIImage *_thumbImg;
 }
 
 #pragma mark Properties
@@ -69,6 +71,7 @@
 @synthesize fileTitle = _fileTitle;
 @synthesize authorName = _authorName;
 @synthesize keyWords = _keyWords;
+@synthesize thumbImg = _thumbImg;
 @dynamic fileName, fileURL;
 
 #pragma mark ReaderDocument class methods
@@ -229,6 +232,9 @@
 			{
 				NSInteger pageCount = CGPDFDocumentGetNumberOfPages(thePDFDocRef);
 
+                /*thumbmail*/
+                _thumbImg = [self getThumbfromPDF:thePDFDocRef];
+                
                 CGPDFDictionaryRef info;
                 if ((info = CGPDFDocumentGetInfo(thePDFDocRef)) == NULL) {
                     NSAssert(NO, @"CGPDFDictionaryGetString == NULL, in%s, in %d", __func__, __LINE__);
@@ -278,6 +284,93 @@
 	}
 
 	return object;
+}
+
+- (UIImage *)getThumbfromPDF:(CGPDFDocumentRef)pdfDocument
+{
+//    CGRect aRect = CGRectMake(0, 0, 100, 200);
+//    CGPDFPageRef myPageRef=CGPDFDocumentGetPage(pdfDocRef, 1);
+//    aRect=CGPDFPageGetBoxRect(myPageRef, kCGPDFCropBox);
+//    UIGraphicsBeginImageContext(CGSizeMake(383, 383*(aRect.size.height/aRect.size.width)));
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    UIImage* thumbnailImage;
+//    CGContextSaveGState(context);
+//    CGContextTranslateCTM(context, 0.0, aRect.size.height);
+////    CGContextScaleCTM(context, 1.0, -1.0);
+    BOOL hasRetinaDisplay = FALSE;  // by default
+    CGFloat pixelsPerPoint = 1.0;  // by default (pixelsPerPoint is just the "scale" property of the screen)
+    
+    if ([UIScreen instancesRespondToSelector:@selector(scale)])  // the "scale" property is only present in iOS 4.0 and later
+    {
+        // we are running iOS 4.0 or later, so we may be on a Retina display;  we need to check further...
+        if ((pixelsPerPoint = [[UIScreen mainScreen] scale]) == 1.0)
+            hasRetinaDisplay = FALSE;
+        else
+            hasRetinaDisplay = TRUE;
+    }
+    else
+    {
+        // we are NOT running iOS 4.0 or later, so we can be sure that we are NOT on a Retina display
+        pixelsPerPoint = 1.0;
+        hasRetinaDisplay = FALSE;
+    }
+    
+    size_t imageWidth = 320;  // width of thumbnail in points
+    size_t imageHeight = 460;  // height of thumbnail in points
+    
+    if (hasRetinaDisplay)
+    {
+        imageWidth *= pixelsPerPoint;
+        imageHeight *= pixelsPerPoint;
+    }
+    
+    size_t bytesPerPixel = 4;  // RGBA
+    size_t bitsPerComponent = 8;
+    size_t bytesPerRow = bytesPerPixel * imageWidth;
+    
+    void *bitmapData = malloc(imageWidth * imageHeight * bytesPerPixel);
+    
+    // in the event that we were unable to mallocate the heap memory for the bitmap,
+    // we just abort and preemptively return nil:
+    if (bitmapData == NULL)
+        return nil;
+    
+    // remember to zero the buffer before handing it off to the bitmap context:
+    bzero(bitmapData, imageWidth * imageHeight * bytesPerPixel);
+    
+    CGContextRef theContext = CGBitmapContextCreate(bitmapData, imageWidth, imageHeight, bitsPerComponent, bytesPerRow, CGColorSpaceCreateDeviceRGB(), kCGImageAlphaPremultipliedLast);
+    
+    //CGPDFDocumentRef pdfDocument = MyGetPDFDocumentRef();  // NOTE: you will need to modify this line to supply the CGPDFDocumentRef for your file here...
+    CGPDFPageRef pdfPage = CGPDFDocumentGetPage(pdfDocument, 1);  // get the first page for your thumbnail
+    
+    CGAffineTransform shrinkingTransform =
+    CGPDFPageGetDrawingTransform(pdfPage, kCGPDFMediaBox, CGRectMake(0, 0, imageWidth, imageHeight), 0, YES);
+    
+    CGContextConcatCTM(theContext, shrinkingTransform);
+    
+    CGContextDrawPDFPage(theContext, pdfPage);  // draw the pdfPage into the bitmap context
+    
+    //
+    // create the CGImageRef (and thence the UIImage) from the context (with its bitmap of the pdf page):
+    //
+    CGImageRef theCGImageRef = CGBitmapContextCreateImage(theContext);
+    free(CGBitmapContextGetData(theContext));  // this frees the bitmapData we malloc'ed earlier
+    CGContextRelease(theContext);
+    
+    UIImage *theUIImage;
+    
+    // CAUTION: the method imageWithCGImage:scale:orientation: only exists on iOS 4.0 or later!!!
+    if ([UIImage respondsToSelector:@selector(imageWithCGImage:scale:orientation:)])
+    {
+        theUIImage = [UIImage imageWithCGImage:theCGImageRef scale:pixelsPerPoint orientation:UIImageOrientationUp];
+    }
+    else
+    {
+        theUIImage = [UIImage imageWithCGImage:theCGImageRef];
+    }
+    
+    CFRelease(theCGImageRef);
+    return theUIImage;
 }
 
 - (NSString *)fileName
@@ -363,6 +456,8 @@
     [encoder encodeObject:_authorName forKey:@"AuthorName"];
     
     [encoder encodeObject:_keyWords forKey:@"KeyWords"];
+    
+    [encoder encodeObject:_thumbImg forKey:@"thumbImg"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -390,6 +485,8 @@
         _authorName = [decoder decodeObjectForKey:@"AuthorName"];
         
         _keyWords = [decoder decodeObjectForKey:@"KeyWords"];
+        
+        _thumbImg = [decoder decodeObjectForKey:@"thumbImg"];
 
 		if (_guid == nil) _guid = [ReaderDocument GUID];
 

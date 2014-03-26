@@ -30,6 +30,10 @@ static NSTimeInterval const kMCDurationHightLimit = 0.1; // Highest duration whe
 
 @implementation MCSwipeTableViewCell
 
+@synthesize titleLabel = _titleLabel;
+@synthesize authorLabel = _authorLabel;
+@synthesize thumbView = _thumbView;
+
 #pragma mark - Initialization
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -115,6 +119,17 @@ secondStateIconName:(NSString *)secondIconName
     _modeForState2 = MCSwipeTableViewCellModeNone;
     _modeForState3 = MCSwipeTableViewCellModeNone;
     _modeForState4 = MCSwipeTableViewCellModeNone;
+    
+    _titleLabel = [[UILabel alloc]init];
+    _titleLabel.textAlignment = NSTextAlignmentLeft;
+    _titleLabel.font = [UIFont systemFontOfSize:18];
+    _authorLabel = [[UILabel alloc]init];
+    _authorLabel.textAlignment = NSTextAlignmentLeft;
+    _authorLabel.font = [UIFont systemFontOfSize:15];
+    _thumbView = [[UIImageView alloc]init];
+    [self.contentView addSubview:_titleLabel];
+    [self.contentView addSubview:_authorLabel];
+    [self.contentView addSubview:_thumbView];
 }
 
 #pragma mark - Setter
@@ -495,6 +510,26 @@ secondStateIconName:(NSString *)secondIconName
     } completion:^(BOOL finished) {
         [self notifyDelegate];
     }];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    CGRect contentRect = self.contentView.bounds;
+    CGFloat boundsX = contentRect.origin.x;
+    CGFloat interval = 10;
+    CGFloat thumbWidth = contentRect.size.height - interval * 6;
+    CGFloat thumbHeight = contentRect.size.height - interval * 2;
+    CGFloat startX = boundsX + interval * 2;
+    CGFloat titleStartY = thumbHeight * 2 / 5;
+    CGRect frame;
+    frame= CGRectMake(startX, interval, thumbWidth, thumbHeight);
+    _thumbView.frame = frame;
+    
+    frame= CGRectMake(startX + thumbWidth + 30, titleStartY, contentRect.size.width * 2 / 3, 25);
+    _titleLabel.frame = frame;
+    
+    frame= CGRectMake(startX + thumbWidth + 30, titleStartY + 25 + 10, 500, 15);
+    _authorLabel.frame = frame;
 }
 
 - (void)swipeToOriginWithCompletion:(void(^)(void))completion {
