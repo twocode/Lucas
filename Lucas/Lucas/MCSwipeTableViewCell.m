@@ -528,7 +528,7 @@ secondStateIconName:(NSString *)secondIconName
     frame= CGRectMake(startX + thumbWidth + 30, titleStartY, contentRect.size.width * 2 / 3, 25);
     _titleLabel.frame = frame;
     
-    frame= CGRectMake(startX + thumbWidth + 30, titleStartY + 25 + 10, 500, 15);
+    frame= CGRectMake(startX + thumbWidth + 30, titleStartY + 25 + 10, 500, 25);
     _authorLabel.frame = frame;
 }
 
