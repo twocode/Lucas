@@ -22,28 +22,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    NSLOG_CGRECT("<<<>>> In AppDelegate::application() - bounds", [[UIScreen mainScreen] bounds]);
-//    NSLOG_CGRECT("<<<>>> In AppDelegate::application() - referencebounds", [self referenceBounds]);
 
-//    IIViewDeckController *deckController = [self generateControllerStack];
-    
-//    self.centerController = deckController.centerController;
-//    self.window.rootViewController = deckController;
-//    self.centerController = (UIViewController *)[self generateControllerStack];
     self.window.rootViewController = (UIViewController *)[self generateControllerStack];
-    
-//    NSLog(@"In application(). frame: %@", NSStringFromCGRect(deckController.view.frame));
-    
     
     [self.window makeKeyAndVisible];
     return YES;
 }
 - (CGRect) referenceBounds {
-    //    if (self.referenceView) {
-    //        return self.referenceView.bounds;
-    //    }
     CGRect bounds = [[UIScreen mainScreen] bounds]; // portrait bounds
     if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
         bounds.size = CGSizeMake(bounds.size.height, bounds.size.width);
@@ -52,42 +38,10 @@
 }
 - (UIViewController *)generateControllerStack
 {
-    
-//    ParaViewerViewController *paraViewerViewController = [[ParaViewerViewController alloc] initWithNibName:@"ParaViewerViewController" bundle:nil];
     UIViewController *paraViewerViewController = [[ParaViewerViewController alloc] initWithNibName:Nil bundle:Nil];
     
-    [AMCommandMaster addButtons:@[[AMCommandButton createButtonWithImage:[UIImage imageNamed:@"saveIcon"] andTitle:@"save" andMenuListItems:@[@"menu item 1", @"menu item 2", @"menu item 3"]],
-                                  [AMCommandButton createButtonWithImage:[UIImage imageNamed:@"deleteIcon"] andTitle:@"delete"],
-                                  [AMCommandButton createButtonWithImage:[UIImage imageNamed:@"help"] andTitle:@"help"],
-                                  [AMCommandButton createButtonWithImage:[UIImage imageNamed:@"settings"] andTitle:@"settings"]]
-                       forGroup:@"TestGroup"];
-    
-    [AMCommandMaster addButtons:@[
-                                  [AMCommandButton createButtonWithImage:[UIImage imageNamed:@"help"] andTitle:@"help"],
-                                  [AMCommandButton createButtonWithImage:[UIImage imageNamed:@"settings"] andTitle:@"settings"]]
-                       forGroup:@"TestGroup2"];
-    [AMCommandMaster setBackgroundColor:[UIColor clearColor] forGroup:@"TestGroup" includeMenuList:YES];
-//    [AMCommandMaster setBackgroundColorForAllGroups:[UIColor clearColor] includeMenuList:YES];
-    [AMCommandMaster addToView:paraViewerViewController.view andLoadGroup:@"TestGroup"];
-    [AMCommandMaster setDelegate:(id)paraViewerViewController];
-    
-    
-    
-    
-    paraViewerViewController = [[UINavigationController alloc] initWithRootViewController:paraViewerViewController];
-//    IIViewDeckController *deckController = [[IIViewDeckController alloc] initWithCenterViewController:paraViewerViewController];
-//    [deckController setPanningMode:IIViewDeckNavigationBarPanning];
-//    deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
-    
-//    leftSideController.constrainedSize = 100;
-//    deckController.leftSize = 100;
-//    deckController.rightSize= 100;
-    
-//    deckController.leftController=nil;
-//    deckController.rightController=nil;
-
-//    [deckController toggleLeftViewAnimated:YES];
-    
+    paraViewerViewController = [[UINavigationController alloc]
+                                initWithRootViewController:paraViewerViewController];
     return paraViewerViewController;
 }
 - (void)applicationWillResignActive:(UIApplication *)application

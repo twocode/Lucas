@@ -31,7 +31,7 @@ name = _name;
 
 @end
 
-@interface ParaViewerViewController () <ReaderViewControllerDelegate, MCSwipeTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate, CommandMasterDelegate> {
+@interface ParaViewerViewController () <ReaderViewControllerDelegate, MCSwipeTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate> {
 
     NSArray *_bgColors;
     NSArray *_groups;
@@ -49,6 +49,7 @@ name = _name;
 @synthesize nbItems = _nbItems;
 @synthesize tableView = _tableView;
 @synthesize bookInfoArray = _bookInfoArray;
+@synthesize toolBar = _toolbar;
 
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,26 +68,26 @@ name = _name;
         [ReaderDocument withDocumentFilePath:book password:nil];
     }
     
-    self.title = @"Pamphlet";
-    
-    self.view.backgroundColor = [UIColor darkGrayColor]; //
-    [[self.navigationController navigationBar] setTranslucent:NO];
+    self.title = @"All Documents";
     
 	CGRect viewBounds = self.view.bounds;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(viewBounds.origin.x, viewBounds.origin.y, [self referenceBounds].size.width, viewBounds.size.height)];
-
     [_tableView setDelegate:self];
     [_tableView setDataSource:self];
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.separatorStyle = YES;
+    
+    _toolbar = [[UIToolbar alloc] init];
+    _toolbar.frame = CGRectMake(0, [self referenceBounds].size.height - 44, [self referenceBounds].size.width, 44);
+    [self fillToolBar];
+    
     [self.view addSubview:_tableView];
+    [self.view addSubview:_toolbar];
+    
     [self setExtraCellLineHidden:_tableView];
 }
 
 - (CGRect) referenceBounds {
-    //    if (self.referenceView) {
-    //        return self.referenceView.bounds;
-    //    }
     CGRect bounds = [[UIScreen mainScreen] bounds]; // portrait bounds
     if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
         bounds.size = CGSizeMake(bounds.size.height, bounds.size.width);
@@ -94,14 +95,25 @@ name = _name;
     return bounds;
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-//    NSLog(@"Bounds %@", NSStringFromCGRect(self.view.bounds));
-//    NSLog(@"Frame %@", NSStringFromCGRect(self.view.frame));
+- (void) fillToolBar
+{
+    /*Add #Pmphlet# subview image*/
+    UIBarButtonItem *marginSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:Nil action:Nil];
+    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:Nil action:Nil];
+    fixedSpace.width = 20.0f;
+    marginSpace.width = [self referenceBounds].size.width - 7 * fixedSpace.width;
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"update-25.png"] style:UIBarButtonItemStylePlain  target:self action:Nil];
+    UIBarButtonItem *settingButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings-25.png"] style:UIBarButtonItemStylePlain  target:self action:nil];
+    NSArray *buttonItems = [NSArray arrayWithObjects: marginSpace, refreshButton, fixedSpace, settingButton, nil];
+    [_toolbar setItems:buttonItems];
 }
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {}
 
 - (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     
-    [AMCommandMaster reload];
+    _toolbar.frame = CGRectMake(0, [self referenceBounds].size.height - 44, [self referenceBounds].size.width, 44);
+    [self fillToolBar];
 }
 
 
@@ -139,15 +151,15 @@ name = _name;
             [controller setRightSize:200.0f];
             controller.rightSize = 200.0f;
             
-            UIBarButtonItem *rightScopeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"list.png"] style:UIBarButtonItemStylePlain  target:self action:@selector(leftScopeButtonClicked:)];
+            UIBarButtonItem *rightScopeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"generic_sorting-25.png"] style:UIBarButtonItemStylePlain  target:self action:@selector(leftScopeButtonClicked:)];
             UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:Nil action:Nil];
             fixedSpace.width = 20.0f;
-            UIBarButtonItem *bookMarkButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:readerViewController action:@selector(bookMarkClicked)];
-            UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:Nil];
+            UIBarButtonItem *bookMarkButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"bookmark-25.png"] style:UIBarButtonItemStylePlain  target:readerViewController action:@selector(bookMarkClicked)];
+            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"share-25.png"] style:UIBarButtonItemStylePlain  target:self action:Nil];
             
             controller.navigationItem.rightBarButtonItems = @[rightScopeButton, fixedSpace, bookMarkButton, fixedSpace];
             controller.navigationItem.leftItemsSupplementBackButton = YES;
-            controller.navigationItem.leftBarButtonItems = @[fixedSpace, actionButton];
+            controller.navigationItem.leftBarButtonItems = @[fixedSpace, shareButton];
             
             [_leftScopeViewController.view setNeedsDisplay];
             readerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
@@ -308,7 +320,7 @@ name = _name;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 160.0;
+    return 140.0;
 }
 
 - (void)setExtraCellLineHidden: (UITableView *)tableView

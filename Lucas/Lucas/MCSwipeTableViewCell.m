@@ -517,7 +517,7 @@ secondStateIconName:(NSString *)secondIconName
     CGRect contentRect = self.contentView.bounds;
     CGFloat boundsX = contentRect.origin.x;
     CGFloat interval = 10;
-    CGFloat thumbWidth = contentRect.size.height - interval * 6;
+    CGFloat thumbWidth = contentRect.size.height - interval * 5;
     CGFloat thumbHeight = contentRect.size.height - interval * 2;
     CGFloat startX = boundsX + interval * 2;
     CGFloat titleStartY = thumbHeight * 2 / 5;
@@ -525,10 +525,10 @@ secondStateIconName:(NSString *)secondIconName
     frame= CGRectMake(startX, interval, thumbWidth, thumbHeight);
     _thumbView.frame = frame;
     
-    frame= CGRectMake(startX + thumbWidth + 30, titleStartY, contentRect.size.width * 2 / 3, 25);
+    frame= CGRectMake(startX + thumbWidth + 40, titleStartY, contentRect.size.width * 2 / 3, 25);
     _titleLabel.frame = frame;
     
-    frame= CGRectMake(startX + thumbWidth + 30, titleStartY + 25 + 10, 500, 25);
+    frame= CGRectMake(startX + thumbWidth + 40, titleStartY + 25 + 10, 500, 25);
     _authorLabel.frame = frame;
 }
 
