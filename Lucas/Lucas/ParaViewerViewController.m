@@ -40,6 +40,10 @@ name = _name;
     NSString *_selectedAccent;
     NSString *_selectedGroup;
     IIViewDeckController *controller;
+    UIToolbar *_toolbar;
+    UILabel *label;
+    UIBarButtonItem *refreshButton;
+    UIBarButtonItem *settingButton;
 }
 @end
 
@@ -50,7 +54,6 @@ name = _name;
 @synthesize nbItems = _nbItems;
 @synthesize tableView = _tableView;
 @synthesize bookInfoArray = _bookInfoArray;
-@synthesize toolBar = _toolbar;
 
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -80,10 +83,19 @@ name = _name;
     
     _toolbar = [[UIToolbar alloc] init];
     _toolbar.frame = CGRectMake(0, [self referenceBounds].size.height - TOOLBAR_HEIGHT, [self referenceBounds].size.width, TOOLBAR_HEIGHT);
+    refreshButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"update-25.png"] style:UIBarButtonItemStylePlain  target:self action:Nil];
+    settingButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings-25.png"] style:UIBarButtonItemStylePlain  target:self action:nil];
     [self fillToolBar];
+    
+    label = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 150, _toolbar.frame.size.height - 5 * 2)];
+    label.textColor = [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0];
+    [label setFont:[UIFont fontWithName:@"Chalkduster" size:24]];
+    label.text = @"Pamphlet";
+    label.backgroundColor = [UIColor clearColor];
     
     [self.view addSubview:_tableView];
     [self.view addSubview:_toolbar];
+    [_toolbar addSubview:label];
     
     [self setExtraCellLineHidden:_tableView];
 }
@@ -98,28 +110,20 @@ name = _name;
 
 - (void) fillToolBar
 {
-    /*Add #Pmphlet# subview image*/
     UIBarButtonItem *marginSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:Nil action:Nil];
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:Nil action:Nil];
     fixedSpace.width = 20.0f;
     marginSpace.width = [self referenceBounds].size.width - 7 * fixedSpace.width;
-    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"update-25.png"] style:UIBarButtonItemStylePlain  target:self action:Nil];
-    UIBarButtonItem *settingButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings-25.png"] style:UIBarButtonItemStylePlain  target:self action:nil];
     NSArray *buttonItems = [NSArray arrayWithObjects: marginSpace, refreshButton, fixedSpace, settingButton, nil];
     [_toolbar setItems:buttonItems];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 150, _toolbar.frame.size.height - 5 * 2)];
-    label.textColor = [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0];
-    [label setFont:[UIFont fontWithName:@"Chalkduster" size:24]];
-    label.text = @"Pamphlet";
-    label.backgroundColor = [UIColor clearColor];
-    [_toolbar addSubview:label];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {}
 
 - (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    _toolbar.frame = CGRectMake(0, [self referenceBounds].size.height - 44, [self referenceBounds].size.width, 44);
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+    _toolbar.frame = CGRectMake(0, [self referenceBounds].size.height - TOOLBAR_HEIGHT, [self referenceBounds].size.width, TOOLBAR_HEIGHT);
     [self fillToolBar];
 }
 
@@ -240,8 +244,6 @@ name = _name;
     cell.titleLabel.text = doc.fileTitle;
     cell.authorLabel.text = doc.authorName;
     cell.thumbView.image = doc.thumbImg;
-//    NSLog(@"title: %@", cell.titleLabel.text);
-//    cell.imageView.bounds = CGRectOffset(cell.frame, 5, 5);
     [cell.thumbView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
     [cell.thumbView.layer setBorderWidth: 1.5];
     
