@@ -49,7 +49,7 @@ name = _name;
 
 
 @implementation ParaViewerViewController
-// Sub views defined.
+
 @synthesize leftScopeViewController = _leftScopeViewController;
 @synthesize nbItems = _nbItems;
 @synthesize tableView = _tableView;
@@ -151,7 +151,7 @@ name = _name;
             _leftScopeViewController = [[LeftScopeViewController alloc] initWithNibName:@"LeftScopeViewController" bundle:nil];
             _leftScopeViewController = [_leftScopeViewController initWithReaderDocument:document];
             _leftScopeViewController.delegate = (id)readerViewController;
-            IISideController *leftSideController = [[IISideController alloc] initWithViewController:(UIViewController *) _leftScopeViewController constrained:200.0];
+            IISideController *leftSideController = [[IISideController alloc] initWithViewController:(UIViewController *) _leftScopeViewController constrained:200.0f];
             
             controller = [[IIViewDeckController alloc] initWithCenterViewController:readerViewController];
             controller.delegate = (id)self;
@@ -160,7 +160,6 @@ name = _name;
             controller.rightController = leftSideController;
             [controller setSizeMode:IIViewDeckViewSizeMode];
             [controller setRightSize:200.0f];
-            controller.rightSize = 200.0f;
             
             UIBarButtonItem *rightScopeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"generic_sorting-25.png"] style:UIBarButtonItemStylePlain  target:self action:@selector(leftScopeButtonClicked:)];
             UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:Nil action:Nil];

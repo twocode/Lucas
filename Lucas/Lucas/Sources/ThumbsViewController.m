@@ -92,24 +92,14 @@
 
 	self.view.backgroundColor = [UIColor darkGrayColor];
 
+    self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, 200, self.view.frame.size.height);
 	CGRect viewRect = self.view.frame; // View controller's view bounds
-
-//	NSString *toolbarTitle = [document.fileName stringByDeletingPathExtension];
-
-//	CGRect toolbarRect = viewRect; toolbarRect.size.height = TOOLBAR_HEIGHT;
-
-//	mainToolbar = [[ThumbsMainToolbar alloc] initWithFrame:toolbarRect title:toolbarTitle]; // At top
-
-//	mainToolbar.delegate = self;
-
-//	[self.view addSubview:mainToolbar];
 
 	CGRect thumbsRect = viewRect; UIEdgeInsets insets = UIEdgeInsetsZero;
 
 	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
 	{
 		thumbsRect.origin.y += TOOLBAR_HEIGHT; thumbsRect.size.height -= TOOLBAR_HEIGHT; thumbsRect.size.width = 200;
-        NSLOG_CGRECT("viewBounds", thumbsRect);
 	}
 	else // Set UIScrollView insets for non-UIUserInterfaceIdiomPad case
 	{
@@ -122,7 +112,6 @@
 
 	theThumbsView.delegate = self;
 
-//	[self.view insertSubview:theThumbsView belowSubview:mainToolbar];
     [self.view addSubview:theThumbsView];
 
 	BOOL large = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
