@@ -16,6 +16,7 @@
 #import "ReaderThumbRequest.h"
 
 #define DEMO_VIEW_CONTROLLER_PUSH FALSE
+#define TOOLBAR_HEIGHT 50
 static NSUInteger const kMCNumItems = 8;
 
 @implementation Color
@@ -78,7 +79,7 @@ name = _name;
     _tableView.separatorStyle = YES;
     
     _toolbar = [[UIToolbar alloc] init];
-    _toolbar.frame = CGRectMake(0, [self referenceBounds].size.height - 44, [self referenceBounds].size.width, 44);
+    _toolbar.frame = CGRectMake(0, [self referenceBounds].size.height - TOOLBAR_HEIGHT, [self referenceBounds].size.width, TOOLBAR_HEIGHT);
     [self fillToolBar];
     
     [self.view addSubview:_tableView];
@@ -106,12 +107,18 @@ name = _name;
     UIBarButtonItem *settingButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings-25.png"] style:UIBarButtonItemStylePlain  target:self action:nil];
     NSArray *buttonItems = [NSArray arrayWithObjects: marginSpace, refreshButton, fixedSpace, settingButton, nil];
     [_toolbar setItems:buttonItems];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 5, 150, _toolbar.frame.size.height - 5 * 2)];
+    label.textColor = [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0];
+    [label setFont:[UIFont fontWithName:@"Chalkduster" size:24]];
+    label.text = @"Pamphlet";
+    label.backgroundColor = [UIColor clearColor];
+    [_toolbar addSubview:label];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {}
 
 - (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    
     _toolbar.frame = CGRectMake(0, [self referenceBounds].size.height - 44, [self referenceBounds].size.width, 44);
     [self fillToolBar];
 }
