@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417973407.173468"
+            timestampString = "418145146.199911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "409"
-            endingLineNumber = "409">
+            startingLineNumber = "418"
+            endingLineNumber = "418">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417965536.79762"
+            timestampString = "418135199.463372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417965536.79762"
+            timestampString = "418135199.463372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -168,13 +168,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417973407.173468"
+            timestampString = "418135199.463372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "@implementation ParaViewerViewController"
-            landmarkType = "3">
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "-handleSingleSwipe:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -200,13 +200,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417973407.173468"
+            timestampString = "418145146.199911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
-            landmarkName = "@implementation ParaViewerViewController"
-            landmarkType = "3">
+            startingLineNumber = "220"
+            endingLineNumber = "220"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -216,11 +216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/Sources/ReaderViewController.m"
-            timestampString = "415196156.940546"
+            timestampString = "418145034.517889"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "728"
-            endingLineNumber = "728"
+            startingLineNumber = "730"
+            endingLineNumber = "730"
             landmarkName = "-contentView:touchesBegan:"
             landmarkType = "5">
          </BreakpointContent>
@@ -232,11 +232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417973407.173468"
+            timestampString = "418145146.199911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "-handleSingleSwipe:"
             landmarkType = "5">
          </BreakpointContent>
@@ -248,11 +248,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/Sources/ReaderViewController.m"
-            timestampString = "415196156.940546"
+            timestampString = "418145809.424367"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "762"
-            endingLineNumber = "762"
+            startingLineNumber = "763"
+            endingLineNumber = "763"
             landmarkName = "-bookMarkClicked"
             landmarkType = "5">
          </BreakpointContent>
@@ -312,13 +312,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417973407.173468"
+            timestampString = "418145146.199911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "-handleSingleSwipe:"
-            landmarkType = "5">
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "@implementation ParaViewerViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -328,11 +328,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/Sources/ThumbsViewController.m"
-            timestampString = "408897352.69049"
+            timestampString = "418143323.997054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "@implementation ThumbsViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -344,11 +344,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417973407.173468"
+            timestampString = "418135199.463372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "-referenceBounds"
             landmarkType = "5">
          </BreakpointContent>
@@ -376,11 +376,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417973407.173468"
+            timestampString = "418145146.199911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -392,11 +392,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417973407.173468"
+            timestampString = "418145146.199911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -449,11 +449,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417973407.173468"
+            timestampString = "418145146.199911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -577,11 +577,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/Sources/ReaderViewController.m"
-            timestampString = "417017536.45257"
+            timestampString = "418145034.517889"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
             landmarkName = "-showDocumentPage:"
             landmarkType = "5">
          </BreakpointContent>
@@ -641,11 +641,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417965536.79762"
+            timestampString = "418135199.463372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -705,12 +705,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Lucas/ParaViewerViewController.m"
-            timestampString = "417973407.173468"
+            timestampString = "418145146.199911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lucas/Sources/ThumbsViewController.m"
+            timestampString = "418145056.645734"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "-toggleBookMark:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lucas/Sources/ReaderThumbsView.m"
+            timestampString = "418146925.049187"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "395"
+            endingLineNumber = "395"
+            landmarkName = "-refreshThumbWithIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lucas/Sources/ThumbsViewController.m"
+            timestampString = "418147096.881066"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "-thumbsView:refreshThumbCell:forIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lucas/Sources/ThumbsViewController.m"
+            timestampString = "418147118.91139"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "471"
+            endingLineNumber = "471"
+            landmarkName = "-showBookmark:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lucas/Sources/ReaderViewController.m"
+            timestampString = "418147480.214083"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "765"
+            endingLineNumber = "765"
+            landmarkName = "-bookMarkClicked"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -73,6 +73,7 @@
 #pragma mark Properties
 
 @synthesize delegate = _delegate;
+@synthesize thumbViewDelegate = _thumbViewDelegate;
 
 #pragma mark Support methods
 
@@ -130,7 +131,8 @@
 	NSInteger page = [document.pageNumber integerValue];
 
 	BOOL bookmarked = [document.bookmarks containsIndex:page];
-
+    
+    //TODO, update book mark state
 //	[mainToolbar setBookmarkState:bookmarked]; // Update
 }
 
@@ -756,21 +758,12 @@
 - (void)bookMarkClicked
 {
 //    [_delegate setNeedsResume];
-    
 	if (printInteraction != nil) [printInteraction dismissAnimated:YES];
     
 	NSInteger page = [document.pageNumber integerValue];
     
-	if ([document.bookmarks containsIndex:page]) // Remove bookmark
-	{
-		/*[mainToolbar setBookmarkState:NO]; */
-        [document.bookmarks removeIndex:page];
-	}
-	else // Add the bookmarked page index to the bookmarks set
-	{
-		/*[mainToolbar setBookmarkState:YES]; */
-        [document.bookmarks addIndex:page];
-	}
+    [_thumbViewDelegate toggleBookMark:page - 1];
+
 }
 
 #pragma mark MFMailComposeViewControllerDelegate methods

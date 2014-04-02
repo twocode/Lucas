@@ -26,6 +26,7 @@
 #import <UIKit/UIKit.h>
 
 #import "ReaderDocument.h"
+#import "ThumbsViewController.h"
 
 @class ReaderViewController;
 
@@ -36,13 +37,13 @@
 - (void)dismissReaderViewController:(ReaderViewController *)viewController;
 - (void)leftScopeButtonClicked:(UIButton *)button;
 - (void)setNeedsResume;
-
+- (void)toggleBookMark:(NSInteger)index;
 
 @end
 
 @interface ReaderViewController : UIViewController
 
-@property (nonatomic, unsafe_unretained, readwrite) id <ReaderViewControllerDelegate> delegate;
+@property (nonatomic, unsafe_unretained, readwrite) id <ReaderViewControllerDelegate> delegate, thumbViewDelegate;
 
 - (id)initWithReaderDocument:(ReaderDocument *)object delegate:(id) dlgt;
 @end

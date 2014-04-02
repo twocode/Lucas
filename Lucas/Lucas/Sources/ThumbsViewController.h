@@ -27,6 +27,7 @@
 
 #import "ThumbsMainToolbar.h"
 #import "ReaderThumbsView.h"
+#import "ReaderViewController.h"
 
 @class ReaderDocument;
 @class ThumbsViewController;

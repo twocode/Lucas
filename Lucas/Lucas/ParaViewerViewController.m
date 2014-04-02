@@ -151,6 +151,7 @@ name = _name;
             _leftScopeViewController = [[LeftScopeViewController alloc] initWithNibName:@"LeftScopeViewController" bundle:nil];
             _leftScopeViewController = [_leftScopeViewController initWithReaderDocument:document];
             _leftScopeViewController.delegate = (id)readerViewController;
+            readerViewController.thumbViewDelegate = (id)_leftScopeViewController;
             IISideController *leftSideController = [[IISideController alloc] initWithViewController:(UIViewController *) _leftScopeViewController constrained:200.0f];
             
             controller = [[IIViewDeckController alloc] initWithCenterViewController:readerViewController];

@@ -31,7 +31,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface ThumbsViewController () </*ThumbsMainToolbarDelegate,*/ ReaderThumbsViewDelegate>
+@interface ThumbsViewController () <ReaderViewControllerDelegate, ReaderThumbsViewDelegate>
 
 @end
 
@@ -182,6 +182,18 @@
 #endif
 
 	[super didReceiveMemoryWarning];
+}
+
+- (void)toggleBookMark:(NSInteger)index
+{
+    NSInteger page = (showBookmarked ? [[bookmarked objectAtIndex:index] integerValue] : (index + 1));
+
+	if ([document.bookmarks containsIndex:page])
+        [document.bookmarks removeIndex:page];
+    else
+        [document.bookmarks addIndex:page];
+    
+	updateBookmarked = YES; [theThumbsView refreshThumbWithIndex:index]; // Refresh page thumb
 }
 
 #pragma mark ThumbsMainToolbarDelegate methods
