@@ -29,7 +29,6 @@
 @property(nonatomic, assign) NSUInteger nbItems;
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) NSArray *bookInfoArray;
-@property (strong, nonatomic) UIToolbar *toolBar;
 
 - (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 @end
