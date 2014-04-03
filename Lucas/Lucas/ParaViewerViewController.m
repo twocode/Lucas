@@ -242,10 +242,11 @@ name = _name;
     NSString *sBookItem = _bookInfoArray[indexPath.row];
     ReaderDocument *doc = [ReaderDocument unarchiveFromFileName:sBookItem password:false];
     cell.titleLabel.text = doc.fileTitle;
-    cell.authorLabel.text = doc.authorName;
+    cell.authorLabel.text = [[NSString alloc] initWithFormat:@"- %@", doc.authorName ];
     cell.thumbView.image = doc.thumbImg;
     [cell.thumbView.layer setBorderColor: [[UIColor lightGrayColor] CGColor]];
     [cell.thumbView.layer setBorderWidth: 1.5];
+    [cell setProgressBarTotal:doc.pageCount nowHave:doc.pageNumber];
     
     cell.modeForState1 = MCSwipeTableViewCellModeSwitch;
     cell.modeForState2 = MCSwipeTableViewCellModeExit;

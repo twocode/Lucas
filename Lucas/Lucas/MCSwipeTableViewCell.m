@@ -7,6 +7,7 @@
 //
 
 #import "MCSwipeTableViewCell.h"
+#import "RMDownloadIndicator.h"
 
 static CGFloat const kMCStop1 = 0.25; // Percentage limit to trigger the first action
 static CGFloat const kMCStop2 = 0.75; // Percentage limit to trigger the second action
@@ -25,6 +26,7 @@ static NSTimeInterval const kMCDurationHightLimit = 0.1; // Highest duration whe
 @property (nonatomic, strong) UIImageView *slidingImageView;
 @property (nonatomic, strong) NSString *currentImageName;
 @property (nonatomic, strong) UIView *colorIndicatorView;
+@property (strong, nonatomic) RMDownloadIndicator *progressBar;
 
 @end
 
@@ -33,6 +35,7 @@ static NSTimeInterval const kMCDurationHightLimit = 0.1; // Highest duration whe
 @synthesize titleLabel = _titleLabel;
 @synthesize authorLabel = _authorLabel;
 @synthesize thumbView = _thumbView;
+@synthesize progressBar = _progressBar;
 
 #pragma mark - Initialization
 
@@ -127,9 +130,26 @@ secondStateIconName:(NSString *)secondIconName
     _authorLabel.textAlignment = NSTextAlignmentLeft;
     _authorLabel.font = [UIFont systemFontOfSize:15];
     _thumbView = [[UIImageView alloc]init];
+    
+    [_progressBar removeFromSuperview];
+//    _progressBar = [[RMDownloadIndicator alloc] init];
+    _progressBar = [[RMDownloadIndicator alloc]initWithFrame:CGRectMake((CGRectGetWidth(self.contentView.bounds) - 150), 10, 76, 76) type:kRMClosedIndicator];
+    [_progressBar setBackgroundColor:[UIColor whiteColor]];
+    [_progressBar setFillColor:[UIColor colorWithRed:16./255 green:119./255 blue:234./255 alpha:1.0f]];
+    [_progressBar setStrokeColor:[UIColor colorWithRed:16./255 green:119./255 blue:234./255 alpha:1.0f]];
+    _progressBar.radiusPercent = 0.45;
+    [_progressBar setType:kRMClosedIndicator];
+    [_progressBar loadIndicator];
+    
     [self.contentView addSubview:_titleLabel];
     [self.contentView addSubview:_authorLabel];
     [self.contentView addSubview:_thumbView];
+    [self.contentView addSubview:_progressBar];
+}
+
+- (void)setProgressBarTotal:(NSNumber *)total nowHave:(NSNumber *)current
+{
+    [_progressBar updateWithTotalBytes:[total floatValue] downloadedBytes:[current floatValue]];
 }
 
 #pragma mark - Setter
@@ -515,21 +535,33 @@ secondStateIconName:(NSString *)secondIconName
 - (void)layoutSubviews {
     [super layoutSubviews];
     CGRect contentRect = self.contentView.bounds;
+    CGFloat width = contentRect.size.width;
+    CGFloat height = contentRect.size.height;
     CGFloat boundsX = contentRect.origin.x;
     CGFloat interval = 10;
-    CGFloat thumbWidth = contentRect.size.height - interval * 5;
-    CGFloat thumbHeight = contentRect.size.height - interval * 2;
+    CGFloat thumbWidth = height - interval * 5;
+    CGFloat thumbHeight = height - interval * 2;
     CGFloat startX = boundsX + interval * 2;
     CGFloat titleStartY = thumbHeight * 2 / 5;
     CGRect frame;
     frame= CGRectMake(startX, interval, thumbWidth, thumbHeight);
     _thumbView.frame = frame;
     
-    frame= CGRectMake(startX + thumbWidth + 40, titleStartY, contentRect.size.width * 2 / 3, 25);
+    frame= CGRectMake(startX + thumbWidth + 40, titleStartY, width * 2 / 3, 25);
     _titleLabel.frame = frame;
     
     frame= CGRectMake(startX + thumbWidth + 40, titleStartY + 25 + 10, 500, 25);
     _authorLabel.frame = frame;
+    
+    _progressBar.frame =  CGRectMake([self referenceBounds].size.width - 150, (height - 76) / 2, 76, 76);
+}
+
+- (CGRect) referenceBounds {
+    CGRect bounds = [[UIScreen mainScreen] bounds]; // portrait bounds
+    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+        bounds.size = CGSizeMake(bounds.size.height, bounds.size.width);
+    }
+    return bounds;
 }
 
 - (void)swipeToOriginWithCompletion:(void(^)(void))completion {

@@ -115,4 +115,6 @@ secondStateIconName:(NSString *)secondIconName
 
 // Manually swipe to origin
 - (void)swipeToOriginWithCompletion:(void(^)(void))completion;
+
+- (void)setProgressBarTotal:(NSNumber *)total nowHave:(NSNumber *)current;
 @end

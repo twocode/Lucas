@@ -20,6 +20,8 @@
 		77129557184CB7F100E74928 /* cross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77129551184CB7F100E74928 /* cross@2x.png */; };
 		7712955D184CC5AA00E74928 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 7712955B184CC5AA00E74928 /* list.png */; };
 		7712955E184CC5AA00E74928 /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7712955C184CC5AA00E74928 /* list@2x.png */; };
+		7765351918ED9B00003935B5 /* RMDisplayLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7765351618ED9B00003935B5 /* RMDisplayLabel.m */; };
+		7765351A18ED9B00003935B5 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7765351818ED9B00003935B5 /* RMDownloadIndicator.m */; };
 		7777649D18B2408A00348907 /* pdf-list.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7777649C18B2408A00348907 /* pdf-list.plist */; };
 		7790390617EF20F200BDF489 /* MCSwipeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7790390517EF20F200BDF489 /* MCSwipeTableViewCell.m */; };
 		77CB035F184F71C500AA0BAB /* deleteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 77CB035B184F71C500AA0BAB /* deleteIcon.png */; };
@@ -142,6 +144,10 @@
 		77129551184CB7F100E74928 /* cross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cross@2x.png"; path = "Lucas/cross@2x.png"; sourceTree = SOURCE_ROOT; };
 		7712955B184CC5AA00E74928 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = list.png; path = Lucas/list.png; sourceTree = SOURCE_ROOT; };
 		7712955C184CC5AA00E74928 /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "list@2x.png"; path = "Lucas/list@2x.png"; sourceTree = SOURCE_ROOT; };
+		7765351518ED9B00003935B5 /* RMDisplayLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMDisplayLabel.h; path = RMLoader/RMDisplayLabel.h; sourceTree = "<group>"; };
+		7765351618ED9B00003935B5 /* RMDisplayLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMDisplayLabel.m; path = RMLoader/RMDisplayLabel.m; sourceTree = "<group>"; };
+		7765351718ED9B00003935B5 /* RMDownloadIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RMDownloadIndicator.h; path = RMLoader/RMDownloadIndicator.h; sourceTree = "<group>"; };
+		7765351818ED9B00003935B5 /* RMDownloadIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RMDownloadIndicator.m; path = RMLoader/RMDownloadIndicator.m; sourceTree = "<group>"; };
 		7777649C18B2408A00348907 /* pdf-list.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "pdf-list.plist"; sourceTree = "<group>"; };
 		7790390417EF20F200BDF489 /* MCSwipeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSwipeTableViewCell.h; sourceTree = "<group>"; };
 		7790390517EF20F200BDF489 /* MCSwipeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSwipeTableViewCell.m; sourceTree = "<group>"; };
@@ -476,6 +482,10 @@
 		77FE7CEE17C7ABC5002698B7 /* Lucas */ = {
 			isa = PBXGroup;
 			children = (
+				7765351518ED9B00003935B5 /* RMDisplayLabel.h */,
+				7765351618ED9B00003935B5 /* RMDisplayLabel.m */,
+				7765351718ED9B00003935B5 /* RMDownloadIndicator.h */,
+				7765351818ED9B00003935B5 /* RMDownloadIndicator.m */,
 				77F9648117D615F400A04D50 /* Sources */,
 				77E7177B17D35DDC007F3A11 /* ViewDeck */,
 				7790390717EF214F00BDF489 /* SwipeTableView */,
@@ -669,12 +679,14 @@
 				77F964C417D615F500A04D50 /* ReaderThumbCache.m in Sources */,
 				77F964C517D615F500A04D50 /* ReaderThumbFetch.m in Sources */,
 				77F964C617D615F500A04D50 /* ReaderThumbQueue.m in Sources */,
+				7765351A18ED9B00003935B5 /* RMDownloadIndicator.m in Sources */,
 				77F964C717D615F500A04D50 /* ReaderThumbRender.m in Sources */,
 				77F964C817D615F500A04D50 /* ReaderThumbRequest.m in Sources */,
 				77F964C917D615F500A04D50 /* ReaderThumbsView.m in Sources */,
 				77F964CA17D615F500A04D50 /* ReaderThumbView.m in Sources */,
 				77F964CB17D615F500A04D50 /* ReaderViewController.m in Sources */,
 				77F964CE17D615F500A04D50 /* UIXToolbarView.m in Sources */,
+				7765351918ED9B00003935B5 /* RMDisplayLabel.m in Sources */,
 				77CE1A8C17D8D01C00787C26 /* ThumbsViewController.m in Sources */,
 				7790390617EF20F200BDF489 /* MCSwipeTableViewCell.m in Sources */,
 			);
