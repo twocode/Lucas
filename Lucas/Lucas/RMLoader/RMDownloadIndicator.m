@@ -47,7 +47,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _type = kRMFilledIndicator;
+        _type = kRMClosedIndicator;
         [self initAttributes];
     }
     return self;
@@ -81,45 +81,18 @@
 - (void)initAttributes
 {
     // first set the radius percent attribute
-    if(_type == kRMClosedIndicator)
-    {
-        self.radiusPercent = 0.5;
-        _coverLayer = [CAShapeLayer layer];
-        _animatingLayer = _coverLayer;
-        
-        // set the fill color
-        _fillColor = [UIColor clearColor];
-        _strokeColor = [UIColor whiteColor];
-        _closedIndicatorBackgroundStrokeColor = [UIColor grayColor];
-        _coverWidth = 2.0;
-        
-        //[self addDisplayLabel];
-    }
-    else
-    {
-        if(_type == kRMFilledIndicator)
-        {
-            // only indicateShapeLayer
-            _indicateShapeLayer = [CAShapeLayer layer];
-            _animatingLayer = _indicateShapeLayer;
-            self.radiusPercent = 0.5;
-            _coverWidth = 2.0;
-        }
-        else
-        {
-            // indicateShapeLayer and coverLayer
-            _indicateShapeLayer = [CAShapeLayer layer];
-            _coverLayer = [CAShapeLayer layer];
-            _animatingLayer = _indicateShapeLayer;
-            _coverWidth = 2.0;
-            self.radiusPercent = 0.4;
-        }
-        
-        // set the fill color
-        _fillColor = [UIColor whiteColor];
-        _strokeColor = [UIColor whiteColor];
-        _closedIndicatorBackgroundStrokeColor = [UIColor clearColor];
-    }
+    
+    self.radiusPercent = 0.5;
+    _coverLayer = [CAShapeLayer layer];
+    _animatingLayer = _coverLayer;
+    
+    // set the fill color
+    _fillColor = [UIColor clearColor];
+    _strokeColor = [UIColor whiteColor];
+    _closedIndicatorBackgroundStrokeColor = [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0];
+    _coverWidth = 3.0;
+    
+    [self addDisplayLabel];
     
     _animatingLayer.frame = self.bounds;
     [self.layer addSublayer:_animatingLayer];
@@ -135,9 +108,9 @@
 {
     self.displayLabel = [[RMDisplayLabel alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.bounds)/2 - 30/2), (CGRectGetHeight(self.bounds)/2 - 30/2), 30, 30)];
     self.displayLabel.backgroundColor = [UIColor clearColor];
-    self.displayLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11.5];
+    self.displayLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:13.5];
     self.displayLabel.text = @"0";
-    self.displayLabel.textColor = [UIColor grayColor];
+    self.displayLabel.textColor = [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0];
     self.displayLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.displayLabel];
 }
@@ -148,19 +121,7 @@
     CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
     UIBezierPath *initialPath = [UIBezierPath bezierPath]; //empty path
     
-    if(_type == kRMClosedIndicator)
-    {
-        [initialPath addArcWithCenter:center radius:(MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))) startAngle:degreeToRadian(-90) endAngle:degreeToRadian(-90) clockwise:YES]; //add the arc
-    }
-    else
-    {
-        if(_type == kRMMixedIndictor)
-        {
-            [self setNeedsDisplay];
-        }
-        CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))/2) * self.radiusPercent;
-        [initialPath addArcWithCenter:center radius:radius startAngle:degreeToRadian(-90) endAngle:degreeToRadian(-90) clockwise:YES]; //add the arc
-    }
+    [initialPath addArcWithCenter:center radius:(MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))) startAngle:degreeToRadian(-90) endAngle:degreeToRadian(-90) clockwise:YES]; //add the arc
     
     _animatingLayer.path = initialPath.CGPath;
     _animatingLayer.strokeColor = _strokeColor.CGColor;
@@ -208,30 +169,14 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    if(_type == kRMMixedIndictor)
-    {
-        CGFloat radius = MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))/2 - self.coverWidth;
-        
-        CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
-        UIBezierPath *coverPath = [UIBezierPath bezierPath]; //empty path
-        [coverPath setLineWidth:_coverWidth];
-        [coverPath addArcWithCenter:center radius:radius startAngle:0 endAngle:2*M_PI clockwise:YES]; //add the arc
-        
-        [_strokeColor set];
-        [coverPath stroke];
-    }
-    else if (_type == kRMClosedIndicator)
-    {
-        CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))/2) - self.coverWidth;
-        
-        CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
-        UIBezierPath *coverPath = [UIBezierPath bezierPath]; //empty path
-        [coverPath setLineWidth:_coverWidth];
-        [coverPath addArcWithCenter:center radius:radius startAngle:0 endAngle:2*M_PI clockwise:YES]; //add the arc
-        [_closedIndicatorBackgroundStrokeColor set];
-        [coverPath setLineWidth:self.coverWidth];
-        [coverPath stroke];
-    }
+    CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))/2) - self.coverWidth - 3.0;
+    
+    CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+    UIBezierPath *coverPath = [UIBezierPath bezierPath]; //empty path
+    [coverPath addArcWithCenter:center radius:radius startAngle:0 endAngle:2*M_PI clockwise:YES]; //add the arc
+    [_closedIndicatorBackgroundStrokeColor set];
+    [coverPath setLineWidth:1.0];
+    [coverPath stroke];
 }
 
 #pragma mark - update indicator
@@ -242,7 +187,7 @@
     [_paths removeAllObjects];
     
     CGFloat destinationAngle = [self destinationAngleForRatio:(downloadedBytes/bytes)];
-    CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) * _radiusPercent) - self.coverWidth;
+    CGFloat radius = [self getRadius] - _coverWidth - 0.5;
     [_paths addObjectsFromArray:[self keyframePathsWithDuration:self.animationDuration lastUpdatedAngle:self.lastSourceAngle newAngle:destinationAngle  radius:radius type:_type]];
     
     _animatingLayer.path = (__bridge CGPathRef)((id)_paths[(_paths.count -1)]);
@@ -255,7 +200,12 @@
     [pathAnimation setRemovedOnCompletion:YES];
     [_animatingLayer addAnimation:pathAnimation forKey:@"path"];
     
-    //[self.displayLabel updateValue:downloadedBytes/bytes];
+    [self.displayLabel updateValue:downloadedBytes];
+}
+
+- (CGFloat)getRadius
+{
+    return (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) * _radiusPercent) - self.coverWidth;
 }
 
 - (CGFloat)destinationAngleForRatio:(CGFloat)ratio

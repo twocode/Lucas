@@ -11,6 +11,6 @@
 @interface RMDisplayLabel : UILabel
 
 // update the numbers
-- (void)updateValue:(CGFloat)value;
+- (void)updateValue:(NSInteger)value;
 
 @end
