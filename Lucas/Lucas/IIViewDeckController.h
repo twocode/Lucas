@@ -340,6 +340,7 @@ typedef void (^IIViewDeckControllerBounceBlock) (IIViewDeckController *controlle
 
 - (BOOL)viewDeckController:(IIViewDeckController*)viewDeckController shouldBeginPanOverView:(UIView*)view;
 
+- (void)reloadTableViewCell;
 @end
 
 

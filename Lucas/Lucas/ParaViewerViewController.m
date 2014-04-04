@@ -32,7 +32,7 @@ name = _name;
 
 @end
 
-@interface ParaViewerViewController () <ReaderViewControllerDelegate, MCSwipeTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate> {
+@interface ParaViewerViewController () <ReaderViewControllerDelegate, MCSwipeTableViewCellDelegate,UITableViewDataSource,UITableViewDelegate, IIViewDeckControllerDelegate> {
 
     NSArray *_bgColors;
     NSArray *_groups;
@@ -44,6 +44,7 @@ name = _name;
     UILabel *label;
     UIBarButtonItem *refreshButton;
     UIBarButtonItem *settingButton;
+    NSIndexPath *_currentIndexPath;
 }
 @end
 
@@ -98,6 +99,11 @@ name = _name;
     [_toolbar addSubview:label];
     
     [self setExtraCellLineHidden:_tableView];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 - (CGRect) referenceBounds {
@@ -349,6 +355,7 @@ name = _name;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //    ParaViewerViewController *tableViewController = [[ParaViewerViewController alloc] init];
 //    [self.navigationController pushViewController:tableViewController animated:YES];
+    _currentIndexPath = indexPath;
     [self handleSingleSwipe:indexPath];
     [_tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -383,6 +390,10 @@ name = _name;
     }
 }
 
+- (void)reloadTableViewCell
+{
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:_currentIndexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+}
 #pragma mark -
 
 - (void)reload:(id)sender {

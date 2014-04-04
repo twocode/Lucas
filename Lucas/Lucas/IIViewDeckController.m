@@ -986,7 +986,7 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+    [_delegate reloadTableViewCell];
     if ([self safe_shouldManageAppearanceMethods]) [self.centerController viewWillDisappear:animated];
     [self transitionAppearanceFrom:2 to:1 animated:animated];
     _viewAppeared = 1;

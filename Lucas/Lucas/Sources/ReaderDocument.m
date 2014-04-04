@@ -394,7 +394,6 @@
 {
 	NSString *archiveFilePath = [ReaderDocument archiveFilePath:filename];
 
-    NSLog(@"archivefilePath: %@", archiveFilePath);
 	return [NSKeyedArchiver archiveRootObject:self toFile:archiveFilePath];
 //    [NSKeyedArchiver archiveRootObject:self toFile:archiveFilePath];
 //    ReaderDocument *document = [NSKeyedUnarchiver unarchiveObjectWithFile:archiveFilePath];

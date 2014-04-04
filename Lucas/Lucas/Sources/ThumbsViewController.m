@@ -288,6 +288,7 @@
 	NSInteger page = (showBookmarked ? [[bookmarked objectAtIndex:index] integerValue] : (index + 1));
 
 	[delegate thumbsViewController:self gotoPage:page]; // Show the selected page
+    [document saveReaderDocument];
 
 	[delegate dismissThumbsViewController:self]; // Dismiss thumbs display
 }
