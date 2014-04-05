@@ -192,6 +192,7 @@
         [document.bookmarks removeIndex:page];
     else
         [document.bookmarks addIndex:page];
+    [document saveReaderDocument];
     
 	updateBookmarked = YES; [theThumbsView refreshThumbWithIndex:index]; // Refresh page thumb
 }
