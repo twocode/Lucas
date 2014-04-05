@@ -187,7 +187,7 @@
     [_paths removeAllObjects];
     
     CGFloat destinationAngle = [self destinationAngleForRatio:(downloadedBytes/bytes)];
-    CGFloat radius = [self getRadius] - _coverWidth - 0.5;
+    CGFloat radius = [self getRadius] - _coverWidth - 0.8;
     [_paths addObjectsFromArray:[self keyframePathsWithDuration:self.animationDuration lastUpdatedAngle:self.lastSourceAngle newAngle:destinationAngle  radius:radius type:_type]];
     
     _animatingLayer.path = (__bridge CGPathRef)((id)_paths[(_paths.count -1)]);

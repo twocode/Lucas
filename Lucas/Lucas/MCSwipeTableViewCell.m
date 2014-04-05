@@ -9,7 +9,8 @@
 #import "MCSwipeTableViewCell.h"
 #import "RMDownloadIndicator.h"
 
-#define RADIUS 95.0f
+#define RADIUS 48.0f
+#define DISTANCEFROMRIGHT 70.0f
 
 static CGFloat const kMCStop1 = 0.25; // Percentage limit to trigger the first action
 static CGFloat const kMCStop2 = 0.75; // Percentage limit to trigger the second action
@@ -135,7 +136,7 @@ secondStateIconName:(NSString *)secondIconName
     
     [_progressBar removeFromSuperview];
 //    _progressBar = [[RMDownloadIndicator alloc] init];
-    _progressBar = [[RMDownloadIndicator alloc]initWithFrame:CGRectMake((CGRectGetWidth(self.contentView.bounds) - 150), 10, RADIUS, RADIUS) type:kRMClosedIndicator];
+    _progressBar = [[RMDownloadIndicator alloc]initWithFrame:CGRectMake((CGRectGetWidth(self.contentView.bounds) - DISTANCEFROMRIGHT), 10, RADIUS, RADIUS) type:kRMClosedIndicator];
     [_progressBar setBackgroundColor:[UIColor whiteColor]];
     [_progressBar setFillColor:[UIColor colorWithRed:16./255 green:119./255 blue:234./255 alpha:1.0f]];
     [_progressBar setStrokeColor:[UIColor colorWithRed:16./255 green:119./255 blue:234./255 alpha:1.0f]];
@@ -555,7 +556,7 @@ secondStateIconName:(NSString *)secondIconName
     frame= CGRectMake(startX + thumbWidth + 40, titleStartY + 25 + 10, 500, 25);
     _authorLabel.frame = frame;
     
-    _progressBar.frame =  CGRectMake([self referenceBounds].size.width - 150, (height - RADIUS) / 2, RADIUS, RADIUS);
+    _progressBar.frame =  CGRectMake([self referenceBounds].size.width - DISTANCEFROMRIGHT, (height - RADIUS) / 2, RADIUS, RADIUS);
 }
 
 - (CGRect) referenceBounds {
