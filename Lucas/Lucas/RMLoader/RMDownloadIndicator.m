@@ -90,7 +90,7 @@
     _fillColor = [UIColor clearColor];
     _strokeColor = [UIColor whiteColor];
     _closedIndicatorBackgroundStrokeColor = [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0];
-    _coverWidth = 3.0;
+    _coverWidth = 3.4;
     
     [self addDisplayLabel];
     
@@ -169,7 +169,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))/2) - self.coverWidth - 3.0;
+    CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))/2) - self.coverWidth - 3.4;
     
     CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
     UIBezierPath *coverPath = [UIBezierPath bezierPath]; //empty path
@@ -187,7 +187,7 @@
     [_paths removeAllObjects];
     
     CGFloat destinationAngle = [self destinationAngleForRatio:(downloadedBytes/bytes)];
-    CGFloat radius = [self getRadius] - _coverWidth - 0.8;
+    CGFloat radius = [self getRadius] - _coverWidth - 1.4;
     [_paths addObjectsFromArray:[self keyframePathsWithDuration:self.animationDuration lastUpdatedAngle:self.lastSourceAngle newAngle:destinationAngle  radius:radius type:_type]];
     
     _animatingLayer.path = (__bridge CGPathRef)((id)_paths[(_paths.count -1)]);
@@ -200,7 +200,7 @@
     [pathAnimation setRemovedOnCompletion:YES];
     [_animatingLayer addAnimation:pathAnimation forKey:@"path"];
     
-    [self.displayLabel updateValue:downloadedBytes];
+    [self.displayLabel updateValue:(downloadedBytes / bytes)];
 }
 
 - (CGFloat)getRadius

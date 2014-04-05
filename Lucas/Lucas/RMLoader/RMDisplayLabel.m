@@ -37,7 +37,7 @@
 - (void)updateValue:(NSInteger)value
 {
     // Change the text
-    self.text = [NSString stringWithFormat:@"%d", value/*(int)(value * 100)*/];
+    self.text = [NSString stringWithFormat:@"%d%%", value/*(int)(value * 100)*/];
 }
 
 @end
